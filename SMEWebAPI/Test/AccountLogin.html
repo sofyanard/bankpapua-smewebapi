@@ -15,8 +15,8 @@
         <p>
             <a href="Index.html">Index</a>
         </p>
-
-        <h1>Account Register</h1>
+        
+        <h1>Account Login</h1>
 
         <br />
 
@@ -28,10 +28,6 @@
             <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" class="form-control" id="password" name="password">
-            </div>
-            <div class="form-group">
-                <label for="confirmpassword">Confirm Password</label>
-                <input type="password" class="form-control" id="confirmpassword" name="confirmpassword">
             </div>
             <button type="button" class="btn btn-primary" id="submit" name="submit">Submit</button>
         </form>
@@ -75,21 +71,21 @@
 
 
             $('#submit').click(function () {
-                var data = JSON.stringify({
-                    "Email": $('#email').val(),
-                    "Password": $('#password').val(),
-                    "ConfirmPassword": $('#confirmpassword').val()
-                });
+                var data = {
+                    username: $('#email').val(),
+                    password: $('#password').val(),
+                    grant_type: 'password'
+                };
 
                 $.ajax({
-                    url: 'http://localhost/smewebapi/api/account/register',
+                    url: 'http://localhost/smewebapi/token',
                     type: 'POST',
                     contentType: 'application/json',
-                    // dataType: 'application/json',
+                    // dataType: 'application/x-www-form-urlencoded',
                     data: data,
                     success: function (result) {
                         $('#divsuccess').show();
-                        $('#msgsuccess').html(result);
+                        $('#msgsuccess').html(JSON.stringify(result));
                     },
                     error: function error(xhr, status, error) {
                         $('#diverror').show();
