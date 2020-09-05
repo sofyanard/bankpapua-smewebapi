@@ -1,0 +1,206 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <title>Hello, world!</title>
+</head>
+<body>
+    <div class="container">
+        <p>
+            <a href="Index.html">Index</a>
+        </p>
+
+        <h1>Simulasi</h1>
+
+        <br />
+
+        <form>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="calctype" id="calctype1" value="1" checked>
+                <label class="form-check-label" for="calctype1">Berdasarkan Plafond</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="calctype" id="calctype2" value="2">
+                <label class="form-check-label" for="calctype2">Berdasarkan Angsuran</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="number" class="form-control" id="amount" name="amount">
+            </div>
+            <br />
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="ratetype" id="ratetype1" value="1">
+                <label class="form-check-label" for="ratetype1">Flat</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="ratetype" id="ratetype2" value="2" checked>
+                <label class="form-check-label" for="ratetype2">Anuitas</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="number" class="form-control" id="rate" name="rate">
+            </div>
+            <div class="form-check form-check-inline">
+                <label for="rate">% per tahun</label>
+            </div>
+            <br />
+            <div class="form-check form-check-inline">
+                <input type="number" class="form-control" id="tenor" name="tenor">
+            </div>
+            <div class="form-check form-check-inline">
+                <label for="tenor">bulan</label>
+            </div>
+            <br />
+            <button type="button" class="btn btn-primary" id="submit" name="submit">Submit</button>
+        </form>
+
+        <br />
+
+        <div class="alert alert-success alert-dismissible" role="alert" id="divsuccess">
+            <span id="msgsuccess"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="alert alert-danger alert-dismissible" role="alert" id="diverror">
+            <span id="msgerror"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="alert alert-info alert-dismissible" role="alert" id="divcomplete">
+            <span id="msgcomplete"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <br />
+        <br />
+
+        <table class="table" id="tvalue">
+            <thead>
+                <tr>
+                    <th scope="col">Plafond</th>
+                    <th scope="col">Angsuran Pokok</th>
+                    <th scope="col">Angsuran Bunga</th>
+                    <th scope="col">Total Angsuran</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="col" id="vplafond"></td>
+                    <td scope="col" id="vangspokok"></td>
+                    <td scope="col" id="vangsbunga"></td>
+                    <td scope="col" id="vangstotal"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <br />
+
+        <table class="table table-striped" id="ttable">
+            <thead>
+                <tr>
+                    <th scope="col">Bulan Ke</th>
+                    <th scope="col">Angsuran Pokok</th>
+                    <th scope="col">Angsuran Bunga</th>
+                    <th scope="col">Total Angsuran</th>
+                    <th scope="col">Sisa Pinjaman</th>
+                </tr>
+            </thead>
+            <tbody id="trbody">
+                
+            </tbody>
+            <tfoot  id="trfoot">
+
+            </tfoot>
+        </table>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#divsuccess').hide();
+            $('#diverror').hide();
+            $('#divcomplete').hide();
+
+            $('#submit').click(function () {
+                var data = JSON.stringify({
+                    CalcType: $("input[name='calctype']:checked").val(),
+                    Amount: $('#amount').val(),
+                    Tenor: $('#tenor').val(),
+                    Rate: $('#rate').val(),
+                    RateType: $("input[name='ratetype']:checked").val()
+                });
+
+                $.ajax({
+                    url: 'http://localhost/smewebapi/api/simulasi',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    // dataType: 'application/json',
+                    data: data,
+                    success: function (result) {
+                        $('#divsuccess').show();
+                        $('#msgsuccess').html(JSON.stringify(result));
+
+                        showvalue(result);
+                        showtable(result);
+                    },
+                    error: function error(xhr, status, error) {
+                        $('#diverror').show();
+                        $('#msgerror').html(xhr.responseText);
+                    },
+                    complete: function (xhr, status) {
+                        $('#divcomplete').show();
+                        $('#msgcomplete').html(xhr.status);
+                    }
+                });
+            });
+        });
+
+        function showvalue(result) {
+            $('#vplafond').html(result.Plafond);
+            $('#vangspokok').html(result.AngsuranPokok);
+            $('#vangsbunga').html(result.AngsuranBunga);
+            $('#vangstotal').html(result.TotalAngsuran);
+        }
+
+        function showtable(result) {
+            response = result.TabelAngsuran;
+
+            var totangspokok = 0;
+            var totangsbunga = 0;
+            var totangsuran = 0;
+
+            var trHTML = '';
+            $.each(response, function (i, item) {
+                trHTML += '<tr><td>' + item.BulanKe + '</td><td>' + item.AngsuranPokok + '</td><td>' + item.AngsuranBunga + '</td><td>' + item.TotalAngsuran + '</td><td>' + item.SisaPinjaman + '</td></tr>';
+
+                totangspokok = totangspokok + item.AngsuranPokok;
+                totangsbunga = totangsbunga + item.AngsuranBunga;
+                totangsuran = totangsuran + item.TotalAngsuran;
+            });
+
+            $('#trbody').html('');
+            $('#trbody').append(trHTML);
+
+            trFoot = '<tr><th>' + 'TOTAL' + '</th><th>' + totangspokok + '</th><th>' + totangsbunga + '</th><th>' + totangsuran + '</th><th>' + '' + '</th></tr>';
+
+            $('#trfoot').html('');
+            $('#trfoot').append(trFoot);
+        }
+    </script>
+</body>
+</html>
