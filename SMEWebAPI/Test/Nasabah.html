@@ -1,0 +1,473 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <title>Hello, world!</title>
+</head>
+<body>
+    <div class="container">
+        <p>
+            <a href="Index.html">Index</a>
+        </p>
+
+        <h1>Nasabah</h1>
+
+        <br />
+
+        <form>
+            <div class="form-group">
+                <label for="token">Token</label>
+                <input type="text" class="form-control" id="token" name="token">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Id</label>
+                <input type="text" class="form-control" id="id" name="id" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="gelarsebelum">Gelar Sebelum Nama</label>
+                <input type="text" class="form-control" id="gelarsebelum" name="gelarsebelum">
+            </div>
+
+            <div class="form-group">
+                <label for="namalengkap">Nama Lengkap</label>
+                <input type="text" class="form-control" id="namalengkap" name="namalengkap" required>
+            </div>
+
+            <div class="form-group">
+                <label for="gelarsesudah">Gelar Sesudah Nama</label>
+                <input type="text" class="form-control" id="gelarsesudah" name="gelarsesudah">
+            </div>
+
+            <div class="form-group">
+                <label for="jeniskelamin">Jenis Kelamin</label>
+                <select class="form-control" id="jeniskelamin" name="jeniskelamin"></select>
+            </div>
+
+            <div class="form-group">
+                <label for="tempatlahir">Tempat Lahir</label>
+                <input type="text" class="form-control" id="tempatlahir" name="tempatlahir" required>
+            </div>
+
+            <div class="form-group">
+                <label for="tanggallahir">Tanggal Lahir</label>
+                <input type="date" class="form-control" id="tanggallahir" name="tanggallahir" required>
+            </div>
+
+            <div class="form-group">
+                <label for="noidentitas">No KTP</label>
+                <input type="number" class="form-control" id="noidentitas" name="noidentitas" required>
+            </div>
+
+            <div class="form-group">
+                <label for="alamatrumah">Alamat</label>
+                <input type="text" class="form-control" id="alamatrumah" name="alamatrumah" required>
+            </div>
+
+            <div class="form-group">
+                <label for="propinsirumah">Propinsi</label>
+                <select class="form-control" id="propinsirumah" name="propinsirumah" required></select>
+            </div>
+
+            <div class="form-group">
+                <label for="kotakabrumah">Kota/Kabupaten</label>
+                <select class="form-control" id="kotakabrumah" name="kotakabrumah" required></select>
+            </div>
+
+            <div class="form-group">
+                <label for="kecamatanrumah">Kecamatan</label>
+                <select class="form-control" id="kecamatanrumah" name="kecamatanrumah"></select>
+            </div>
+
+            <div class="form-group">
+                <label for="kelurahanrumah">Kelurahan</label>
+                <select class="form-control" id="kelurahanrumah" name="kelurahanrumah"></select>
+            </div>
+
+            <div class="form-group">
+                <label for="kodeposrumah">Kode Pos</label>
+                <input type="number" class="form-control" id="kodeposrumah" name="kodeposrumah">
+            </div>
+
+            <div class="form-group">
+                <label for="teleponrumah">Telepon Rumah</label>
+                <input type="text" class="form-control" id="teleponrumah" name="teleponrumah">
+            </div>
+
+            <div class="form-group">
+                <label for="telepongenggam">Telepon Genggam</label>
+                <input type="text" class="form-control" id="telepongenggam" name="telepongenggam" required>
+            </div>
+
+            <div class="form-group">
+                <label for="namaibukandung">Nama Ibu Kandung</label>
+                <input type="text" class="form-control" id="namaibukandung" name="namaibukandung" required>
+            </div>
+
+            <div class="form-group">
+                <label for="pendidikan">Pendidikan</label>
+                <select class="form-control" id="pendidikan" name="pendidikan"></select>
+            </div>
+
+            <div class="form-group">
+                <label for="statusperkawinan">Status Perkawinan</label>
+                <select class="form-control" id="statusperkawinan" name="statusperkawinan"></select>
+            </div>
+
+            <div class="form-group">
+                <label for="kewarganegaraan">Kewarganegaraan</label>
+                <select class="form-control" id="kewarganegaraan" name="kewarganegaraan"></select>
+            </div>
+
+            <div class="form-group">
+                <label for="statusrumah">Status Rumah</label>
+                <select class="form-control" id="statusrumah" name="statusrumah"></select>
+            </div>
+
+            <br />
+
+            <div class="row">
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-info" id="getid" name="getid">Inquiry Id</button>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary" id="get" name="get">GET / ID</button>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary" id="put" name="put">PUT / ID</button>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary" id="post" name="post">POST</button>
+                </div>
+            </div>
+
+        </form>
+
+        <br />
+
+        <div class="alert alert-success alert-dismissible" role="alert" id="divsuccess">
+            <span id="msgsuccess"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="alert alert-danger alert-dismissible" role="alert" id="diverror">
+            <span id="msgerror"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="alert alert-info alert-dismissible" role="alert" id="divcomplete">
+            <span id="msgcomplete"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#divsuccess').hide();
+            $('#diverror').hide();
+            $('#divcomplete').hide();
+
+            // Jenis Kelamin
+            $.ajax({
+                url: 'http://localhost/smewebapi/api/parameter/sex',
+                contentType: 'application/json',
+                success: function (result) {
+                    $.each(result, function () {
+                        $('#jeniskelamin').append($("<option />").val(this.SexId).text(this.SexDesc));
+                    });
+                }
+            });
+
+            // Propinsi
+            $.ajax({
+                url: 'http://localhost/smewebapi/api/parameter/propinsi',
+                contentType: 'application/json',
+                success: function (result) {
+                    $.each(result, function () {
+                        $('#propinsirumah').append($("<option />").val(this.Id).text(this.Name));
+                    });
+                }
+            });
+
+            // Kota/Kabupaten
+            $('#propinsirumah').change(function () {
+                $.ajax({
+                    url: 'http://localhost/smewebapi/api/parameter/kotakabupaten/' + $('#propinsirumah').val(),
+                    contentType: 'application/json',
+                    success: function (result) {
+                        $('#kotakabrumah').empty();
+                        $('#kecamatanrumah').empty();
+                        $('#kelurahanrumah').empty();
+                        $.each(result, function () {
+                            $('#kotakabrumah').append($("<option />").val(this.Id).text(this.Name));
+                        });
+                    }
+                });
+            });
+
+            // Kecamatan
+            $('#kotakabrumah').change(function () {
+                $.ajax({
+                    url: 'http://localhost/smewebapi/api/parameter/kecamatan/' + $('#kotakabrumah').val(),
+                    contentType: 'application/json',
+                    success: function (result) {
+                        $('#kecamatanrumah').empty();
+                        $('#kelurahanrumah').empty();
+                        $.each(result, function () {
+                            $('#kecamatanrumah').append($("<option />").val(this.Id).text(this.Name));
+                        });
+                    }
+                });
+            });
+
+            // Kelurahan
+            $('#kecamatanrumah').change(function () {
+                $.ajax({
+                    url: 'http://localhost/smewebapi/api/parameter/kelurahan/' + $('#kecamatanrumah').val(),
+                    contentType: 'application/json',
+                    success: function (result) {
+                        $('#kelurahanrumah').empty();
+                        $.each(result, function () {
+                            $('#kelurahanrumah').append($("<option />").val(this.Id).text(this.Name));
+                        });
+                    }
+                });
+            });
+
+            // Pendidikan
+            $.ajax({
+                url: 'http://localhost/smewebapi/api/parameter/education',
+                contentType: 'application/json',
+                success: function (result) {
+                    $.each(result, function () {
+                        $('#pendidikan').append($("<option />").val(this.EducationId).text(this.EducationDesc));
+                    });
+                }
+            });
+
+            // Status Perkawinan
+            $.ajax({
+                url: 'http://localhost/smewebapi/api/parameter/marital',
+                contentType: 'application/json',
+                success: function (result) {
+                    $.each(result, function () {
+                        $('#statusperkawinan').append($("<option />").val(this.MaritalId).text(this.MaritalDesc));
+                    });
+                }
+            });
+
+            // Kewarganegaraan
+            $.ajax({
+                url: 'http://localhost/smewebapi/api/parameter/citizenship',
+                contentType: 'application/json',
+                success: function (result) {
+                    $.each(result, function () {
+                        $('#kewarganegaraan').append($("<option />").val(this.CitizenId).text(this.CitizenDesc));
+                    });
+                }
+            });
+
+            // Status Rumah
+            $.ajax({
+                url: 'http://localhost/smewebapi/api/parameter/homestatus',
+                contentType: 'application/json',
+                success: function (result) {
+                    $.each(result, function () {
+                        $('#statusrumah').append($("<option />").val(this.HomeStatusId).text(this.HomeStatusDesc));
+                    });
+                }
+            });
+
+            // POST
+            $('#post').click(function () {
+                var data = JSON.stringify({
+                    GelarSebelum: $('#gelarsebelum').val(),
+                    NamaLengkap: $('#namalengkap').val(),
+                    GelarSesudah: $('#gelarsesudah').val(),
+                    JenisKelamin: $('#jeniskelamin').val(),
+                    TempatLahir: $('#tempatlahir').val(),
+                    TanggalLahir: $('#tanggallahir').val(),
+                    NoIdentitas: $('#noidentitas').val(),
+                    AlamatRumah: $('#alamatrumah').val(),
+                    PropinsiRumah: $('#propinsirumah').val(),
+                    KotaKabRumah: $('#kotakabrumah').val(),
+                    KecamatanRumah: $('#kecamatanrumah').val(),
+                    KelurahanRumah: $('#kelurahanrumah').val(),
+                    KodePosRumah: $('#kodeposrumah').val(),
+                    TeleponRumah: $('#teleponrumah').val(),
+                    TeleponGenggam: $('#telepongenggam').val(),
+                    NamaIbuKandung: $('#namaibukandung').val(),
+                    Pendidikan: $('#pendidikan').val(),
+                    StatusPerkawinan: $('#statusperkawinan').val(),
+                    Kewarganegaraan: $('#kewarganegaraan').val(),
+                    StatusRumah: $('#statusrumah').val()
+                });
+
+                $.ajax({
+                    url: 'http://localhost/smewebapi/api/nasabah',
+                    type: 'POST',
+                    headers: {
+                        "Authorization": "Bearer " + $('#token').val()
+                    },
+                    contentType: 'application/json',
+                    //dataType: 'application/json',
+                    data: data,
+                    success: function (result) {
+                        $('#divsuccess').show();
+                        $('#msgsuccess').html(JSON.stringify(result));
+                    },
+                    error: function error(xhr, status, error) {
+                        $('#diverror').show();
+                        $('#msgerror').html(xhr.responseText);
+                    },
+                    complete: function (xhr, status) {
+                        $('#divcomplete').show();
+                        $('#msgcomplete').html(xhr.status);
+                    }
+                });
+            });
+
+            // INQUIRY ID
+            $('#getid').click(function () {
+                $.ajax({
+                    url: 'http://localhost/smewebapi/api/nasabah/getid',
+                    type: 'GET',
+                    headers: {
+                        "Authorization": "Bearer " + $('#token').val()
+                    },
+                    contentType: 'application/json',
+                    success: function (result) {
+                        $('#divsuccess').show();
+                        $('#msgsuccess').html(JSON.stringify(result));
+
+                        $('#id').val(result);
+                    },
+                    error: function error(xhr, status, error) {
+                        $('#diverror').show();
+                        $('#msgerror').html(xhr.responseText);
+                    },
+                    complete: function (xhr, status) {
+                        $('#divcomplete').show();
+                        $('#msgcomplete').html(xhr.status);
+                    }
+                });
+            });
+
+            // GET / ID
+            $('#get').click(function () {
+                $.ajax({
+                    url: 'http://localhost/smewebapi/api/nasabah/' + $('#id').val(),
+                    type: 'GET',
+                    headers: {
+                        "Authorization": "Bearer " + $('#token').val()
+                    },
+                    contentType: 'application/json',
+                    success: function (result) {
+                        $('#divsuccess').show();
+                        $('#msgsuccess').html(JSON.stringify(result));
+
+                        $('#gelarsebelum').val(result.GelarSebelum);
+                        $('#namalengkap').val(result.NamaLengkap);
+                        $('#gelarsesudah').val(result.GelarSesudah);
+                        $('#jeniskelamin').val(result.JenisKelamin);
+                        $('#tempatlahir').val(result.TempatLahir);
+                        $('#tanggallahir').val(result.TanggalLahir);
+                        $('#noidentitas').val(result.NoIdentitas);
+                        $('#alamatrumah').val(result.AlamatRumah);
+                        $('#propinsirumah').val(result.PropinsiRumah);
+                        $('#kotakabrumah').val(result.KotaKabRumah);
+                        $('#kecamatanrumah').val(result.KecamatanRumah);
+                        $('#kelurahanrumah').val(result.KelurahanRumah);
+                        $('#kodeposrumah').val(result.KodePosRumah);
+                        $('#teleponrumah').val(result.TeleponRumah);
+                        $('#telepongenggam').val(result.TeleponGenggam);
+                        $('#namaibukandung').val(result.NamaIbuKandung);
+                        $('#pendidikan').val(result.Pendidikan);
+                        $('#statusperkawinan').val(result.StatusPerkawinan);
+                        $('#kewarganegaraan').val(result.Kewarganegaraan);
+                        $('#statusrumah').val(result.StatusRumah);
+                    },
+                    error: function error(xhr, status, error) {
+                        $('#diverror').show();
+                        $('#msgerror').html(xhr.responseText);
+                    },
+                    complete: function (xhr, status) {
+                        $('#divcomplete').show();
+                        $('#msgcomplete').html(xhr.status);
+                    }
+                });
+            });
+
+            // PUT / ID
+            $('#put').click(function () {
+                var data = JSON.stringify({
+                    Id: $('#id').val(),
+                    GelarSebelum: $('#gelarsebelum').val(),
+                    NamaLengkap: $('#namalengkap').val(),
+                    GelarSesudah: $('#gelarsesudah').val(),
+                    JenisKelamin: $('#jeniskelamin').val(),
+                    TempatLahir: $('#tempatlahir').val(),
+                    TanggalLahir: $('#tanggallahir').val(),
+                    NoIdentitas: $('#noidentitas').val(),
+                    AlamatRumah: $('#alamatrumah').val(),
+                    PropinsiRumah: $('#propinsirumah').val(),
+                    KotaKabRumah: $('#kotakabrumah').val(),
+                    KecamatanRumah: $('#kecamatanrumah').val(),
+                    KelurahanRumah: $('#kelurahanrumah').val(),
+                    KodePosRumah: $('#kodeposrumah').val(),
+                    TeleponRumah: $('#teleponrumah').val(),
+                    TeleponGenggam: $('#telepongenggam').val(),
+                    NamaIbuKandung: $('#namaibukandung').val(),
+                    Pendidikan: $('#pendidikan').val(),
+                    StatusPerkawinan: $('#statusperkawinan').val(),
+                    Kewarganegaraan: $('#kewarganegaraan').val(),
+                    StatusRumah: $('#statusrumah').val()
+                });
+
+                $.ajax({
+                    url: 'http://localhost/smewebapi/api/nasabah/putbasic/' + $('#id').val(),
+                    type: 'PUT',
+                    headers: {
+                        "Authorization": "Bearer " + $('#token').val()
+                    },
+                    contentType: 'application/json',
+                    //dataType: 'application/json',
+                    data: data,
+                    success: function (result) {
+                        $('#divsuccess').show();
+                        $('#msgsuccess').html(JSON.stringify(result));
+                    },
+                    error: function error(xhr, status, error) {
+                        $('#diverror').show();
+                        $('#msgerror').html(xhr.responseText);
+                    },
+                    complete: function (xhr, status) {
+                        $('#divcomplete').show();
+                        $('#msgcomplete').html(xhr.status);
+                    }
+                });
+            });
+
+        });
+    </script>
+</body>
+</html>
