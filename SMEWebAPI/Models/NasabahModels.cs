@@ -170,4 +170,72 @@ namespace SMEWebAPI.Models
         [ForeignKey("HubunganSaudara")]
         public virtual RfRelationship RfRelationship { get; set; }
     }
+
+    public class NasabahPekerjaan
+    {
+        [Key]
+        public int Id { get; set; }
+
+        [StringLength(10)]
+        public string JenisPekerjaan { get; set; }
+
+        [ForeignKey("JenisPekerjaan")]
+        public virtual RfJobTitle RfJobTitle { get; set; }
+
+        public double? Pendapatan { get; set; }
+
+        [StringLength(100)]
+        public string AlamatKantor { get; set; }
+
+        [StringLength(50)]
+        public string TeleponKantor { get; set; }
+
+        [StringLength(10)]
+        public string PropinsiKantor { get; set; }
+
+        [ForeignKey("PropinsiKantor")]
+        public virtual RefPropinsi RefPropinsiKantor { get; set; }
+
+        [StringLength(10)]
+        public string KotaKabKantor { get; set; }
+
+        [ForeignKey("KotaKabKantor")]
+        public virtual RefKotaKab RefKotaKabKantor { get; set; }
+
+        [StringLength(10)]
+        public string KodePosKantor { get; set; }
+    }
+
+    public class NasabahSaudara
+    {
+        [Key]
+        public int Id { get; set; }
+
+        [StringLength(50)]
+        public string NamaSaudara { get; set; }
+
+        [StringLength(100)]
+        public string AlamatSaudara { get; set; }
+
+        [StringLength(10)]
+        public string PropinsiSaudara { get; set; }
+
+        [ForeignKey("PropinsiSaudara")]
+        public virtual RefPropinsi RefPropinsiSaudara { get; set; }
+
+        [StringLength(10)]
+        public string KotaKabSaudara { get; set; }
+
+        [ForeignKey("KotaKabSaudara")]
+        public virtual RefKotaKab RefKotaKabSaudara { get; set; }
+
+        [StringLength(10)]
+        public string KodePosSaudara { get; set; }
+
+        [StringLength(10)]
+        public string HubunganSaudara { get; set; }
+
+        [ForeignKey("HubunganSaudara")]
+        public virtual RfRelationship RfRelationship { get; set; }
+    }
 }

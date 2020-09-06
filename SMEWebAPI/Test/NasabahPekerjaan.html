@@ -1,0 +1,258 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <title>Hello, world!</title>
+</head>
+<body>
+    <div class="container">
+        <p>
+            <a href="Index.html">Index</a>
+        </p>
+
+        <h1>Nasabah - Pekerjaan</h1>
+
+        <br />
+
+        <form>
+            <div class="form-group">
+                <label for="token">Token</label>
+                <input type="text" class="form-control" id="token" name="token">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Id</label>
+                <input type="text" class="form-control" id="id" name="id" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="jenispekerjaan">Jenis Pekerjaan</label>
+                <select class="form-control" id="jenispekerjaan" name="jenispekerjaan"></select>
+            </div>
+
+            <div class="form-group">
+                <label for="pendapatan">Pendapatan</label>
+                <input type="number" class="form-control" id="pendapatan" name="pendapatan">
+            </div>
+
+            <div class="form-group">
+                <label for="alamatkantor">Alamat Kantor</label>
+                <input type="text" class="form-control" id="alamatkantor" name="alamatkantor">
+            </div>
+
+            <div class="form-group">
+                <label for="propinsikantor">Propinsi Kantor</label>
+                <select class="form-control" id="propinsikantor" name="propinsikantor"></select>
+            </div>
+
+            <div class="form-group">
+                <label for="kotakabkantor">Kota/Kab Kantor</label>
+                <select class="form-control" id="kotakabkantor" name="kotakabkantor"></select>
+            </div>
+
+            <div class="form-group">
+                <label for="kodeposkantor">Kode Pos Kantor</label>
+                <input type="number" class="form-control" id="kodeposkantor" name="kodeposkantor">
+            </div>
+
+            <div class="form-group">
+                <label for="teleponkantor">Telepon Kantor</label>
+                <input type="text" class="form-control" id="teleponkantor" name="teleponkantor">
+            </div>
+
+            <br />
+
+            <div class="row">
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-info" id="getid" name="getid">Inquiry Id</button>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary" id="get" name="get">GET / ID</button>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary" id="put" name="put">PUT / ID</button>
+                </div>
+                <div class="col-md-3">
+
+                </div>
+            </div>
+
+        </form>
+
+        <br />
+
+        <div class="alert alert-success alert-dismissible" role="alert" id="divsuccess">
+            <span id="msgsuccess"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="alert alert-danger alert-dismissible" role="alert" id="diverror">
+            <span id="msgerror"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="alert alert-info alert-dismissible" role="alert" id="divcomplete">
+            <span id="msgcomplete"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#divsuccess').hide();
+            $('#diverror').hide();
+            $('#divcomplete').hide();
+
+            // Jenis Pekerjaan
+            $.ajax({
+                url: 'http://localhost/smewebapi/api/parameter/jobtitle',
+                contentType: 'application/json',
+                success: function (result) {
+                    $.each(result, function () {
+                        $('#jenispekerjaan').append($("<option />").val(this.JobTitleId).text(this.JobTitleDesc));
+                    });
+                }
+            });
+
+            // Propinsi
+            $.ajax({
+                url: 'http://localhost/smewebapi/api/parameter/propinsi',
+                contentType: 'application/json',
+                success: function (result) {
+                    $.each(result, function () {
+                        $('#propinsikantor').append($("<option />").val(this.Id).text(this.Name));
+                    });
+                }
+            });
+
+            // Kota/Kabupaten
+            $('#propinsikantor').change(function () {
+                $.ajax({
+                    url: 'http://localhost/smewebapi/api/parameter/kotakabupaten/' + $('#propinsikantor').val(),
+                    contentType: 'application/json',
+                    success: function (result) {
+                        $('#kotakabkantor').empty();
+                        $.each(result, function () {
+                            $('#kotakabkantor').append($("<option />").val(this.Id).text(this.Name));
+                        });
+                    }
+                });
+            });
+
+            // INQUIRY ID
+            $('#getid').click(function () {
+                $.ajax({
+                    url: 'http://localhost/smewebapi/api/nasabah/getid',
+                    type: 'GET',
+                    headers: {
+                        "Authorization": "Bearer " + $('#token').val()
+                    },
+                    contentType: 'application/json',
+                    success: function (result) {
+                        $('#divsuccess').show();
+                        $('#msgsuccess').html(JSON.stringify(result));
+
+                        $('#id').val(result);
+                    },
+                    error: function error(xhr, status, error) {
+                        $('#diverror').show();
+                        $('#msgerror').html(xhr.responseText);
+                    },
+                    complete: function (xhr, status) {
+                        $('#divcomplete').show();
+                        $('#msgcomplete').html(xhr.status);
+                    }
+                });
+            });
+
+            // GET / ID
+            $('#get').click(function () {
+                $.ajax({
+                    url: 'http://localhost/smewebapi/api/nasabah/' + $('#id').val(),
+                    type: 'GET',
+                    headers: {
+                        "Authorization": "Bearer " + $('#token').val()
+                    },
+                    contentType: 'application/json',
+                    success: function (result) {
+                        $('#divsuccess').show();
+                        $('#msgsuccess').html(JSON.stringify(result));
+
+                        $('#jenispekerjaan').val(result.JenisPekerjaan);
+                        $('#pendapatan').val(result.Pendapatan);
+                        $('#alamatkantor').val(result.AlamatKantor);
+                        $('#propinsikantor').val(result.PropinsiKantor);
+                        $('#kotakabkantor').val(result.KotaKabKantor);
+                        $('#kodeposkantor').val(result.KodePosKantor);
+                        $('#teleponkantor').val(result.TeleponKantor);
+                    },
+                    error: function error(xhr, status, error) {
+                        $('#diverror').show();
+                        $('#msgerror').html(xhr.responseText);
+                    },
+                    complete: function (xhr, status) {
+                        $('#divcomplete').show();
+                        $('#msgcomplete').html(xhr.status);
+                    }
+                });
+            });
+
+            // PUT / ID
+            $('#put').click(function () {
+                var data = JSON.stringify({
+                    Id: $('#id').val(),
+                    JenisPekerjaan: $('#jenispekerjaan').val(),
+                    Pendapatan: $('#pendapatan').val(),
+                    AlamatKantor: $('#alamatkantor').val(),
+                    PropinsiKantor: $('#propinsikantor').val(),
+                    KotaKabKantor: $('#kotakabkantor').val(),
+                    KodePosKantor: $('#kodeposkantor').val(),
+                    TeleponKantor: $('#teleponkantor').val(),
+                });
+
+                $.ajax({
+                    url: 'http://localhost/smewebapi/api/nasabah/putpekerjaan/' + $('#id').val(),
+                    type: 'PUT',
+                    headers: {
+                        "Authorization": "Bearer " + $('#token').val()
+                    },
+                    contentType: 'application/json',
+                    //dataType: 'application/json',
+                    data: data,
+                    success: function (result) {
+                        $('#divsuccess').show();
+                        $('#msgsuccess').html(JSON.stringify(result));
+                    },
+                    error: function error(xhr, status, error) {
+                        $('#diverror').show();
+                        $('#msgerror').html(xhr.responseText);
+                    },
+                    complete: function (xhr, status) {
+                        $('#divcomplete').show();
+                        $('#msgcomplete').html(xhr.status);
+                    }
+                });
+            });
+
+        });
+    </script>
+</body>
+</html>

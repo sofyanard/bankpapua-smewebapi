@@ -48,6 +48,7 @@ namespace SMEWebAPI.Controllers
         }
 
         // PUT: api/Nasabah/5
+        /*
         [ResponseType(typeof(void))]
         public IHttpActionResult PutNasabah(int id, Nasabah nasabah)
         {
@@ -81,6 +82,7 @@ namespace SMEWebAPI.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
+        */
 
         // POST: api/Nasabah
         [ResponseType(typeof(Nasabah))]
@@ -105,6 +107,7 @@ namespace SMEWebAPI.Controllers
         }
 
         // DELETE: api/Nasabah/5
+        /*
         [ResponseType(typeof(Nasabah))]
         public IHttpActionResult DeleteNasabah(int id)
         {
@@ -119,6 +122,7 @@ namespace SMEWebAPI.Controllers
 
             return Ok(nasabah);
         }
+        */
 
         protected override void Dispose(bool disposing)
         {
@@ -204,6 +208,101 @@ namespace SMEWebAPI.Controllers
 
             try
             {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!NasabahExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        [Route("PutPekerjaan/{Id}")]
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutPekerjaan(int id, [FromBody] NasabahPekerjaan nasabahPekerjaan)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != nasabahPekerjaan.Id)
+            {
+                return BadRequest();
+            }
+
+            Nasabah nasabah = db.Nasabahs.Find(id);
+
+            if (nasabah == null)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                nasabah.JenisPekerjaan = nasabahPekerjaan.JenisPekerjaan;
+                nasabah.Pendapatan = nasabahPekerjaan.Pendapatan;
+                nasabah.AlamatKantor = nasabahPekerjaan.AlamatKantor;
+                nasabah.PropinsiKantor = nasabahPekerjaan.PropinsiKantor;
+                nasabah.KotaKabKantor = nasabahPekerjaan.KotaKabKantor;
+                nasabah.KodePosKantor = nasabahPekerjaan.KodePosKantor;
+                nasabah.TeleponKantor = nasabahPekerjaan.TeleponKantor;
+
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!NasabahExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        [Route("PutSaudara/{Id}")]
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutSaudara(int id, [FromBody] NasabahSaudara nasabahSaudara)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != nasabahSaudara.Id)
+            {
+                return BadRequest();
+            }
+
+            Nasabah nasabah = db.Nasabahs.Find(id);
+
+            if (nasabah == null)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                nasabah.NamaSaudara = nasabahSaudara.NamaSaudara;
+                nasabah.AlamatSaudara = nasabahSaudara.AlamatSaudara;
+                nasabah.PropinsiSaudara = nasabahSaudara.PropinsiSaudara;
+                nasabah.KotaKabSaudara = nasabahSaudara.KotaKabSaudara;
+                nasabah.KodePosSaudara = nasabahSaudara.KodePosSaudara;
+                nasabah.HubunganSaudara = nasabahSaudara.HubunganSaudara;
+
                 db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)

@@ -277,6 +277,8 @@
     <Content Include="Test\js\jquery-3.5.1.min.js" />
     <Content Include="Test\js\popper.min.js" />
     <Content Include="Test\Nasabah.html" />
+    <Content Include="Test\NasabahPekerjaan.html" />
+    <Content Include="Test\NasabahSaudara.html" />
     <Content Include="Test\Simulasi.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
