@@ -16,7 +16,7 @@
     <AssemblyName>SMEWebAPI</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44322</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
@@ -212,6 +212,7 @@
     <Compile Include="Controllers\NasabahController.cs" />
     <Compile Include="Controllers\ParameterController.cs" />
     <Compile Include="Controllers\SimulasiController.cs" />
+    <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -280,6 +281,7 @@
     <Content Include="Test\NasabahPekerjaan.html" />
     <Content Include="Test\NasabahSaudara.html" />
     <Content Include="Test\Simulasi.html" />
+    <Content Include="Test\UploadFile.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -345,7 +347,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>49747</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/SMEWebAPI</IISUrl>
+          <IISUrl>http://localhost:49747/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
