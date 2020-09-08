@@ -123,7 +123,7 @@
 
             // Jenis Pekerjaan
             $.ajax({
-                url: 'http://localhost/smewebapi/api/parameter/jobtitle',
+                url: '../api/parameter/jobtitle',
                 contentType: 'application/json',
                 success: function (result) {
                     $.each(result, function () {
@@ -134,7 +134,7 @@
 
             // Propinsi
             $.ajax({
-                url: 'http://localhost/smewebapi/api/parameter/propinsi',
+                url: '../api/parameter/propinsi',
                 contentType: 'application/json',
                 success: function (result) {
                     $.each(result, function () {
@@ -146,7 +146,7 @@
             // Kota/Kabupaten
             $('#propinsikantor').change(function () {
                 $.ajax({
-                    url: 'http://localhost/smewebapi/api/parameter/kotakabupaten/' + $('#propinsikantor').val(),
+                    url: '../api/parameter/kotakabupaten/' + $('#propinsikantor').val(),
                     contentType: 'application/json',
                     success: function (result) {
                         $('#kotakabkantor').empty();
@@ -160,7 +160,7 @@
             // INQUIRY ID
             $('#getid').click(function () {
                 $.ajax({
-                    url: 'http://localhost/smewebapi/api/nasabah/getid',
+                    url: '../api/nasabah/getid',
                     type: 'GET',
                     headers: {
                         "Authorization": "Bearer " + $('#token').val()
@@ -186,7 +186,7 @@
             // GET / ID
             $('#get').click(function () {
                 $.ajax({
-                    url: 'http://localhost/smewebapi/api/nasabah/' + $('#id').val(),
+                    url: '../api/nasabah/' + $('#id').val(),
                     type: 'GET',
                     headers: {
                         "Authorization": "Bearer " + $('#token').val()
@@ -229,7 +229,7 @@
                 });
 
                 $.ajax({
-                    url: 'http://localhost/smewebapi/api/nasabah/putpekerjaan/' + $('#id').val(),
+                    url: '../api/nasabah/putpekerjaan/' + $('#id').val(),
                     type: 'PUT',
                     headers: {
                         "Authorization": "Bearer " + $('#token').val()

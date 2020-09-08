@@ -27,7 +27,7 @@
             </div>
 
             <div class="form-group">
-                <label for="email">Id</label>
+                <label for="id">Id</label>
                 <input type="text" class="form-control" id="id" name="id" readonly>
             </div>
 
@@ -118,7 +118,7 @@
 
             // Hubungan Saudara
             $.ajax({
-                url: 'http://localhost/smewebapi/api/parameter/relationship',
+                url: '../api/parameter/relationship',
                 contentType: 'application/json',
                 success: function (result) {
                     $.each(result, function () {
@@ -129,7 +129,7 @@
 
             // Propinsi
             $.ajax({
-                url: 'http://localhost/smewebapi/api/parameter/propinsi',
+                url: '../api/parameter/propinsi',
                 contentType: 'application/json',
                 success: function (result) {
                     $.each(result, function () {
@@ -141,7 +141,7 @@
             // Kota/Kabupaten
             $('#propinsisaudara').change(function () {
                 $.ajax({
-                    url: 'http://localhost/smewebapi/api/parameter/kotakabupaten/' + $('#propinsisaudara').val(),
+                    url: '../api/parameter/kotakabupaten/' + $('#propinsisaudara').val(),
                     contentType: 'application/json',
                     success: function (result) {
                         $('#kotakabsaudara').empty();
@@ -155,7 +155,7 @@
             // INQUIRY ID
             $('#getid').click(function () {
                 $.ajax({
-                    url: 'http://localhost/smewebapi/api/nasabah/getid',
+                    url: '../api/nasabah/getid',
                     type: 'GET',
                     headers: {
                         "Authorization": "Bearer " + $('#token').val()
@@ -181,7 +181,7 @@
             // GET / ID
             $('#get').click(function () {
                 $.ajax({
-                    url: 'http://localhost/smewebapi/api/nasabah/' + $('#id').val(),
+                    url: '../api/nasabah/' + $('#id').val(),
                     type: 'GET',
                     headers: {
                         "Authorization": "Bearer " + $('#token').val()
@@ -222,7 +222,7 @@
                 });
 
                 $.ajax({
-                    url: 'http://localhost/smewebapi/api/nasabah/putsaudara/' + $('#id').val(),
+                    url: '../api/nasabah/putsaudara/' + $('#id').val(),
                     type: 'PUT',
                     headers: {
                         "Authorization": "Bearer " + $('#token').val()

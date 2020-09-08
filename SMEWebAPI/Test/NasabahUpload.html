@@ -16,24 +16,45 @@
             <a href="Index.html">Index</a>
         </p>
 
-        <h1>Account Register</h1>
+        <h1>Nasabah - Upload</h1>
 
         <br />
 
-        <form>
+        <form name="form1" method="post" enctype="multipart/form-data" action="../api/nasabahupload">
             <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" name="email">
+                <label for="token">Token</label>
+                <input type="text" class="form-control" id="token" name="token">
             </div>
+
+            <hr />
+
             <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password">
+                <label for="file">File</label>
+                <input type="file" class="form-control" id="file" name="file">
             </div>
+
             <div class="form-group">
-                <label for="confirmpassword">Confirm Password</label>
-                <input type="password" class="form-control" id="confirmpassword" name="confirmpassword">
+                <label for="caption">Caption</label>
+                <input type="text" class="form-control" id="caption" name="caption">
             </div>
-            <button type="button" class="btn btn-primary" id="submit" name="submit">Submit</button>
+
+            <br />
+
+            <div class="row">
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary" id="get" name="get">GET</button>
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-primary" id="submit" name="submit">POST</button>
+                </div>
+                <div class="col-md-3">
+
+                </div>
+                <div class="col-md-3">
+
+                </div>
+            </div>
+
         </form>
 
         <br />
@@ -58,6 +79,23 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
+
+        <br />
+
+        <table class="table table-striped" id="ttable">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">NasabahId</th>
+                    <th scope="col">FileName</th>
+                    <th scope="col">Caption</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody id="trbody">
+            </tbody>
+        </table>
     </div>
 
     <!-- Optional JavaScript -->
@@ -72,24 +110,20 @@
             $('#diverror').hide();
             $('#divcomplete').hide();
 
-
-
-            $('#submit').click(function () {
-                var data = JSON.stringify({
-                    "Email": $('#email').val(),
-                    "Password": $('#password').val(),
-                    "ConfirmPassword": $('#confirmpassword').val()
-                });
-
+            // GET
+            $('#get').click(function () {
                 $.ajax({
-                    url: '../api/account/register',
-                    type: 'POST',
+                    url: '../api/nasabahupload/',
+                    type: 'GET',
+                    headers: {
+                        "Authorization": "Bearer " + $('#token').val()
+                    },
                     contentType: 'application/json',
-                    // dataType: 'application/json',
-                    data: data,
                     success: function (result) {
                         $('#divsuccess').show();
-                        $('#msgsuccess').html(result);
+                        $('#msgsuccess').html(JSON.stringify(result));
+
+                        showtable(result)
                     },
                     error: function error(xhr, status, error) {
                         $('#diverror').show();
@@ -101,7 +135,19 @@
                     }
                 });
             });
+
         });
+
+        function showtable(result) {
+            var trHTML = '';
+            $.each(result, function (i, item) {
+                trHTML += '<tr><td>' + item.Id + '</td><td>' + item.NasabahId + '</td><td>' + item.FileName + '</td><td>' + item.Caption +
+                    '</td><td><a href="' + item.DownloadUrl + '">Download</a></td><td>' + '<a href="#">Delete</a>' + '</td></tr>';
+            });
+
+            $('#trbody').html('');
+            $('#trbody').append(trHTML);
+        }
     </script>
 </body>
 </html>

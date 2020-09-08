@@ -188,7 +188,7 @@
 
             // Jenis Kelamin
             $.ajax({
-                url: 'http://localhost/smewebapi/api/parameter/sex',
+                url: '../api/parameter/sex',
                 contentType: 'application/json',
                 success: function (result) {
                     $.each(result, function () {
@@ -199,7 +199,7 @@
 
             // Propinsi
             $.ajax({
-                url: 'http://localhost/smewebapi/api/parameter/propinsi',
+                url: '../api/parameter/propinsi',
                 contentType: 'application/json',
                 success: function (result) {
                     $.each(result, function () {
@@ -211,7 +211,7 @@
             // Kota/Kabupaten
             $('#propinsirumah').change(function () {
                 $.ajax({
-                    url: 'http://localhost/smewebapi/api/parameter/kotakabupaten/' + $('#propinsirumah').val(),
+                    url: '../api/parameter/kotakabupaten/' + $('#propinsirumah').val(),
                     contentType: 'application/json',
                     success: function (result) {
                         $('#kotakabrumah').empty();
@@ -227,7 +227,7 @@
             // Kecamatan
             $('#kotakabrumah').change(function () {
                 $.ajax({
-                    url: 'http://localhost/smewebapi/api/parameter/kecamatan/' + $('#kotakabrumah').val(),
+                    url: '../api/parameter/kecamatan/' + $('#kotakabrumah').val(),
                     contentType: 'application/json',
                     success: function (result) {
                         $('#kecamatanrumah').empty();
@@ -242,7 +242,7 @@
             // Kelurahan
             $('#kecamatanrumah').change(function () {
                 $.ajax({
-                    url: 'http://localhost/smewebapi/api/parameter/kelurahan/' + $('#kecamatanrumah').val(),
+                    url: '../api/parameter/kelurahan/' + $('#kecamatanrumah').val(),
                     contentType: 'application/json',
                     success: function (result) {
                         $('#kelurahanrumah').empty();
@@ -255,7 +255,7 @@
 
             // Pendidikan
             $.ajax({
-                url: 'http://localhost/smewebapi/api/parameter/education',
+                url: '../api/parameter/education',
                 contentType: 'application/json',
                 success: function (result) {
                     $.each(result, function () {
@@ -266,7 +266,7 @@
 
             // Status Perkawinan
             $.ajax({
-                url: 'http://localhost/smewebapi/api/parameter/marital',
+                url: '../api/parameter/marital',
                 contentType: 'application/json',
                 success: function (result) {
                     $.each(result, function () {
@@ -277,7 +277,7 @@
 
             // Kewarganegaraan
             $.ajax({
-                url: 'http://localhost/smewebapi/api/parameter/citizenship',
+                url: '../api/parameter/citizenship',
                 contentType: 'application/json',
                 success: function (result) {
                     $.each(result, function () {
@@ -288,7 +288,7 @@
 
             // Status Rumah
             $.ajax({
-                url: 'http://localhost/smewebapi/api/parameter/homestatus',
+                url: '../api/parameter/homestatus',
                 contentType: 'application/json',
                 success: function (result) {
                     $.each(result, function () {
@@ -323,7 +323,7 @@
                 });
 
                 $.ajax({
-                    url: 'http://localhost/smewebapi/api/nasabah',
+                    url: '../api/nasabah',
                     type: 'POST',
                     headers: {
                         "Authorization": "Bearer " + $('#token').val()
@@ -349,7 +349,7 @@
             // INQUIRY ID
             $('#getid').click(function () {
                 $.ajax({
-                    url: 'http://localhost/smewebapi/api/nasabah/getid',
+                    url: '../api/nasabah/getid',
                     type: 'GET',
                     headers: {
                         "Authorization": "Bearer " + $('#token').val()
@@ -375,7 +375,7 @@
             // GET / ID
             $('#get').click(function () {
                 $.ajax({
-                    url: 'http://localhost/smewebapi/api/nasabah/' + $('#id').val(),
+                    url: '../api/nasabah/' + $('#id').val(),
                     type: 'GET',
                     headers: {
                         "Authorization": "Bearer " + $('#token').val()
@@ -444,7 +444,7 @@
                 });
 
                 $.ajax({
-                    url: 'http://localhost/smewebapi/api/nasabah/putbasic/' + $('#id').val(),
+                    url: '../api/nasabah/putbasic/' + $('#id').val(),
                     type: 'PUT',
                     headers: {
                         "Authorization": "Bearer " + $('#token').val()

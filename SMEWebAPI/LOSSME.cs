@@ -15,6 +15,8 @@ namespace SMEWebAPI
         }
 
         public virtual DbSet<Nasabah> Nasabahs { get; set; }
+
+        public virtual DbSet<NasabahUpload> NasabahUploads { get; set; }
         public virtual DbSet<RefPropinsi> RefPropinsis { get; set; }
         public virtual DbSet<RefKotaKab> RefKotaKabs { get; set; }
         public virtual DbSet<RefKecamatan> RefKecamatans { get; set; }
