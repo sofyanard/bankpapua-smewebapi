@@ -1,0 +1,431 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-select.min.css">
+
+    <title>Hello, world!</title>
+</head>
+<body>
+    <div class="container">
+        <p>
+            <a href="Index.html">Index</a>
+        </p>
+
+        <h1>Nasabah - Pengajuan</h1>
+
+        <br />
+
+        <form>
+            <div class="form-group">
+                <label for="token">Token</label>
+                <input type="text" class="form-control" id="token" name="token">
+            </div>
+
+            <div class="form-group">
+                <label for="id">Id</label>
+                <select class="form-control" id="id" name="id"></select>
+            </div>
+
+            <div class="form-group">
+                <label for="nasabahid">Nasabah Id</label>
+                <input type="text" class="form-control" id="nasabahid" name="nasabahid" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="product">Product</label>
+                <select class="form-control" id="product" name="product"></select>
+            </div>
+
+            <div class="form-group">
+                <label for="limit">Limit</label>
+                <input type="number" class="form-control" id="limit" name="limit" required>
+            </div>
+
+            <div class="form-group">
+                <label for="tenor">Tenor (bulan)</label>
+                <input type="number" class="form-control" id="tenor" name="tenor" required>
+            </div>
+
+            <div class="form-group">
+                <label for="purpose">Purpose</label>
+                <select class="form-control" id="purpose" name="purpose"></select>
+            </div>
+
+            <div class="form-group">
+                <label for="collateralflag">Collateral</label>
+                <select class="form-control" id="collateralflag" name="collateralflag">
+                    <option value="1">Ya</option>
+                    <option value="0">Tidak</option>
+                </select>
+            </div>
+
+            <div id="divcollateral">
+
+                <div class="form-group">
+                    <label for="collateraltype">Collateral Type</label>
+                    <select class="form-control" id="collateraltype" name="collateraltype"></select>
+                </div>
+
+                <div class="form-group">
+                    <label for="collateralvalue">CollateralValue</label>
+                    <input type="number" class="form-control" id="collateralvalue" name="collateralvalue">
+                </div>
+
+                <div class="form-group">
+                    <label for="certificatetype">Certificate Type</label>
+                    <select class="form-control" id="certificatetype" name="certificatetype"></select>
+                </div>
+
+                <div class="form-group">
+                    <label for="certificateno">Certificate No</label>
+                    <input type="text" class="form-control" id="certificateno" name="certificateno">
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label for="area">Area</label>
+                <select class="form-control" id="area" name="area"></select>
+            </div>
+
+            <div class="form-group">
+                <label for="city">City</label>
+                <select class="selectpicker form-control" data-live-search="true" id="city" name="city"></select>
+            </div>
+
+            <div class="form-group">
+                <label for="branchcode">Branch</label>
+                <select class="selectpicker form-control" data-live-search="true" id="branchcode" name="branchcode"></select>
+            </div>
+
+            <br />
+
+            <div class="row">
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary" id="getall" name="getid">GET ALL</button>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary" id="get" name="get">GET / ID</button>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary" id="put" name="put">PUT / ID</button>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary" id="post" name="post">POST</button>
+                </div>
+            </div>
+
+        </form>
+
+        <br />
+
+        <div class="alert alert-success alert-dismissible" role="alert" id="divsuccess">
+            <span id="msgsuccess"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="alert alert-danger alert-dismissible" role="alert" id="diverror">
+            <span id="msgerror"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="alert alert-info alert-dismissible" role="alert" id="divcomplete">
+            <span id="msgcomplete"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-select.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#divsuccess').hide();
+            $('#diverror').hide();
+            $('#divcomplete').hide();
+
+            // Product
+            $.ajax({
+                url: '../api/parameter/product',
+                contentType: 'application/json',
+                success: function (result) {
+                    $.each(result, function () {
+                        $('#product').append($("<option />").val(this.ProductId).text(this.ProductDesc));
+                    });
+                }
+            });
+
+            // Loan Purpose
+            $.ajax({
+                url: '../api/parameter/loanpurpose',
+                contentType: 'application/json',
+                success: function (result) {
+                    $.each(result, function () {
+                        $('#purpose').append($("<option />").val(this.LoanPurpId).text(this.LoanPurpDesc));
+                    });
+                }
+            });
+
+            // Collateral Type
+            $.ajax({
+                url: '../api/parameter/collateraltype',
+                contentType: 'application/json',
+                success: function (result) {
+                    $.each(result, function () {
+                        $('#collateraltype').append($("<option />").val(this.ColTypeSeq).text(this.ColTypeDesc));
+                    });
+                }
+            });
+
+            // Certificate Type
+            $.ajax({
+                url: '../api/parameter/certificatetypeall',
+                contentType: 'application/json',
+                success: function (result) {
+                    $.each(result, function () {
+                        $('#certificatetype').append($("<option />").val(this.CertTypeId).text(this.CertTypeDesc));
+                    });
+                }
+            });
+
+            // Area
+            $.ajax({
+                url: '../api/parameter/area',
+                contentType: 'application/json',
+                success: function (result) {
+                    $.each(result, function () {
+                        $('#area').append($("<option />").val(this.AreaId).text(this.AreaName));
+                    });
+                }
+            });
+
+            // City
+            $('#area').change(function () {
+                $.ajax({
+                    url: '../api/parameter/citybyarea/' + $('#area').val(),
+                    contentType: 'application/json',
+                    success: function (result) {
+                        $('#city').empty();
+                        $.each(result, function () {
+                            $('#city').append($("<option />").val(this.CityId).text(this.CityName));
+                        });
+                        $('#city').selectpicker('refresh');
+                    }
+                });
+            });
+
+            // Branch
+            $('#city').change(function () {
+                $.ajax({
+                    url: '../api/parameter/branchbycity/' + $('#city').val(),
+                    contentType: 'application/json',
+                    success: function (result) {
+                        $('#branchcode').empty();
+                        $.each(result, function () {
+                            $('#branchcode').append($("<option />").val(this.BranchCode).text(this.BranchName));
+                        });
+                        $('#branchcode').selectpicker('refresh');
+                    }
+                });
+            });
+
+            $('#collateralflag').change(function () {
+                alert($('#collateralflag').val());
+                if ($('#collateralflag').val() == "1") {
+                    $('#divcollateral').show();
+                } else {
+                    $('#divcollateral').hide();
+                }
+            });
+
+            // POST
+            $('#post').click(function () {
+
+                if ($('#collateralflag').val() == "1") {
+                    var data = JSON.stringify({
+                        Product: $('#product').val(),
+                        Limit: $('#limit').val(),
+                        Tenor: $('#tenor').val(),
+                        Purpose: $('#purpose').val(),
+                        CollateralFlag: $('#collateralflag').val(),
+                        CollateralType: $('#collateraltype').val(),
+                        CollateralValue: $('#collateralvalue').val(),
+                        CertificateType: $('#certificatetype').val(),
+                        CertificateNo: $('#certificateno').val(),
+                        BranchCode: $('#branchcode').val()
+                    });
+                } else {
+                    var data = JSON.stringify({
+                        Product: $('#product').val(),
+                        Limit: $('#limit').val(),
+                        Tenor: $('#tenor').val(),
+                        Purpose: $('#purpose').val(),
+                        CollateralFlag: $('#collateralflag').val(),
+                        BranchCode: $('#branchcode').val()
+                    });
+                }
+
+                $.ajax({
+                    url: '../api/pengajuan',
+                    type: 'POST',
+                    headers: {
+                        "Authorization": "Bearer " + $('#token').val()
+                    },
+                    contentType: 'application/json',
+                    //dataType: 'application/json',
+                    data: data,
+                    success: function (result) {
+                        $('#divsuccess').show();
+                        $('#msgsuccess').html(JSON.stringify(result));
+                    },
+                    error: function error(xhr, status, error) {
+                        $('#diverror').show();
+                        $('#msgerror').html(xhr.responseText);
+                    },
+                    complete: function (xhr, status) {
+                        $('#divcomplete').show();
+                        $('#msgcomplete').html(xhr.status);
+                    }
+                });
+            });
+
+            // GET ALL
+            $('#getall').click(function () {
+                $.ajax({
+                    url: '../api/pengajuan',
+                    type: 'GET',
+                    headers: {
+                        "Authorization": "Bearer " + $('#token').val()
+                    },
+                    contentType: 'application/json',
+                    success: function (result) {
+                        $('#divsuccess').show();
+                        $('#msgsuccess').html(JSON.stringify(result));
+
+                        $('#id').empty();
+                        $.each(result, function () {
+                            $('#id').append($("<option />").val(this.Id).text(this.Id));
+                        });
+                    },
+                    error: function error(xhr, status, error) {
+                        $('#diverror').show();
+                        $('#msgerror').html(xhr.responseText);
+                    },
+                    complete: function (xhr, status) {
+                        $('#divcomplete').show();
+                        $('#msgcomplete').html(xhr.status);
+                    }
+                });
+            });
+
+            // GET / ID
+            $('#get').click(function () {
+                $.ajax({
+                    url: '../api/pengajuan/' + $('#id').val(),
+                    type: 'GET',
+                    headers: {
+                        "Authorization": "Bearer " + $('#token').val()
+                    },
+                    contentType: 'application/json',
+                    success: function (result) {
+                        $('#divsuccess').show();
+                        $('#msgsuccess').html(JSON.stringify(result));
+
+                        $('#nasabahid').val(result.NasabahId);
+                        $('#product').val(result.Product);
+                        $('#limit').val(result.Limit);
+                        $('#tenor').val(result.Tenor);
+                        $('#purpose').val(result.Purpose);
+                        $('#collateralflag').val(result.CollateralFlag);
+                        $('#collateraltype').val(result.CollateralType);
+                        $('#collateralvalue').val(result.CollateralValue);
+                        $('#certificatetype').val(result.CertificateType);
+                        $('#certificateno').val(result.CertificateNo);
+                        $('#branchcode').val(result.BranchCode);
+                    },
+                    error: function error(xhr, status, error) {
+                        $('#diverror').show();
+                        $('#msgerror').html(xhr.responseText);
+                    },
+                    complete: function (xhr, status) {
+                        $('#divcomplete').show();
+                        $('#msgcomplete').html(xhr.status);
+                    }
+                });
+            });
+
+            // PUT / ID
+            $('#put').click(function () {
+
+                if ($('#collateralflag').val() == "1") {
+                    var data = JSON.stringify({
+                        Id: $('#id').val(),
+                        NasabahId: $('#nasabahid').val(),
+                        Product: $('#product').val(),
+                        Limit: $('#limit').val(),
+                        Tenor: $('#tenor').val(),
+                        Purpose: $('#purpose').val(),
+                        CollateralFlag: $('#collateralflag').val(),
+                        CollateralType: $('#collateraltype').val(),
+                        CollateralValue: $('#collateralvalue').val(),
+                        CertificateType: $('#certificatetype').val(),
+                        CertificateNo: $('#certificateno').val(),
+                        BranchCode: $('#branchcode').val()
+                    });
+                } else {
+                    var data = JSON.stringify({
+                        Id: $('#id').val(),
+                        NasabahId: $('#nasabahid').val(),
+                        Product: $('#product').val(),
+                        Limit: $('#limit').val(),
+                        Tenor: $('#tenor').val(),
+                        Purpose: $('#purpose').val(),
+                        CollateralFlag: $('#collateralflag').val(),
+                        BranchCode: $('#branchcode').val()
+                    });
+                }
+
+                $.ajax({
+                    url: '../api/pengajuan/' + $('#id').val(),
+                    type: 'PUT',
+                    headers: {
+                        "Authorization": "Bearer " + $('#token').val()
+                    },
+                    contentType: 'application/json',
+                    //dataType: 'application/json',
+                    data: data,
+                    success: function (result) {
+                        $('#divsuccess').show();
+                        $('#msgsuccess').html(JSON.stringify(result));
+                    },
+                    error: function error(xhr, status, error) {
+                        $('#diverror').show();
+                        $('#msgerror').html(xhr.responseText);
+                    },
+                    complete: function (xhr, status) {
+                        $('#divcomplete').show();
+                        $('#msgcomplete').html(xhr.status);
+                    }
+                });
+            });
+
+        });
+    </script>
+</body>
+</html>

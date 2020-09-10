@@ -133,4 +133,132 @@
         [Column("RELTYPEDESC")]
         public string RelationshipDesc { get; set; }
     }
+
+    [Table("RFPRODUCT")]
+    public class RfProduct
+    {
+        [Key]
+        [Column("PRODUCTID")]
+        public string ProductId { get; set; }
+
+        [Column("PRODUCTDESC")]
+        public string ProductDesc { get; set; }
+
+        [Column("ISSUBAPPPROD")]
+        public string IsSubAppProd { get; set; }
+
+        [Column("ACTIVE")]
+        public string Active { get; set; }
+    }
+
+    [Table("RFLOANPURPOSE")]
+    public class RfLoanPurpose
+    {
+        [Key]
+        [Column("LOANPURPID")]
+        public string LoanPurpId { get; set; }
+
+        [Column("LOANPURPDESC")]
+        public string LoanPurpDesc { get; set; }
+
+        [Column("ACTIVE")]
+        public string Active { get; set; }
+    }
+
+    [Table("RFCOLLATERALTYPE")]
+    public class RfCollateralType
+    {
+        [Key]
+        [Column("COLTYPESEQ")]
+        public int ColTypeSeq { get; set; }
+
+        [Column("COLTYPEID")]
+        public string ColTypeId { get; set; }
+
+        [Column("COLTYPEDESC")]
+        public string ColTypeDesc { get; set; }
+
+        [Column("COLLINKTABLE")]
+        public string ColLinkTable { get; set; }
+
+        [Column("ACTIVE")]
+        public string Active { get; set; }
+    }
+
+    [Table("RFCERTTYPE")]
+    public class RfCertType
+    {
+        [Key]
+        [Column("CERTTYPEID")]
+        public string CertTypeId { get; set; }
+
+        [Column("CERTTYPEDESC")]
+        public string CertTypeDesc { get; set; }
+
+        [Column("COLFLAG")]
+        public string ColFlag { get; set; }
+
+        [Column("ACTIVE")]
+        public string Active { get; set; }
+    }
+
+    [Table("RFAREA")]
+    public class RfArea
+    {
+        [Key]
+        [Column("AREAID")]
+        public string AreaId { get; set; }
+
+        [Column("AREANAME")]
+        public string AreaName { get; set; }
+
+        [Column("ACTIVE")]
+        public string Active { get; set; }
+    }
+
+    [Table("RFCITY")]
+    public class RfCity
+    {
+        [Key]
+        [Column("CITYID")]
+        public string CityId { get; set; }
+
+        [Column("AREAID")]
+        public string AreaId { get; set; }
+
+        [ForeignKey("AreaId")]
+        public virtual RfArea RfArea { get; set; }
+
+        [Column("CITYNAME")]
+        public string CityName { get; set; }
+
+        [Column("ACTIVE")]
+        public string Active { get; set; }
+    }
+
+    [Table("RFBRANCH")]
+    public class RfBranch
+    {
+        [Key]
+        [Column("BRANCH_CODE")]
+        public string BranchCode { get; set; }
+
+        [Column("CITYID")]
+        public string CityId { get; set; }
+
+        [ForeignKey("CityId")]
+        public virtual RfCity RfCity { get; set; }
+
+        [Column("BRANCH_NAME")]
+        public string BranchName { get; set; }
+
+        [Column("BR_ISBRANCH")]
+        public string IsBranch { get; set; }
+
+        [Column("BRANCH_TYPE")]
+        public string BranchType { get; set; }
+
+        [Column("ACTIVE")]
+        public string Active { get; set; }
+    }
 }

@@ -81,5 +81,107 @@ namespace SMEWebAPI.Controllers
         {
             return Ok(db.RfRelationships);
         }
+
+        [Route("Product")]
+        public IHttpActionResult GetProduct()
+        {
+            var result = db.RfProducts
+                .Where(p => p.IsSubAppProd == "1" && p.Active == "1")
+                .Select(p => new { p.ProductId, p.ProductDesc })
+                .ToList();
+            return Ok(result);
+        }
+
+        [Route("LoanPurpose")]
+        public IHttpActionResult GetLoanPurpose()
+        {
+            var result = db.RfLoanPurposes
+                .Where(p => p.Active == "1")
+                .Select(p => new { p.LoanPurpId, p.LoanPurpDesc })
+                .ToList();
+            return Ok(result);
+        }
+
+        [Route("CollateralType")]
+        public IHttpActionResult GetCollateralType()
+        {
+            var result = db.RfCollateralTypes
+                .Where(p => p.Active == "1")
+                .Select(p => new { p.ColTypeSeq, p.ColTypeDesc })
+                .ToList();
+            return Ok(result);
+        }
+
+        [Route("CertificateTypeAll")]
+        public IHttpActionResult GetAllCertificateType()
+        {
+            var result = db.RfCertTypes
+                .Where(p => p.Active == "1")
+                .Select(p => new { p.CertTypeId, p.CertTypeDesc })
+                .ToList();
+            return Ok(result);
+        }
+
+        [Route("CertificateTypeByColType/{ColTypeSeq}")]
+        public IHttpActionResult GetCertificateTypeByColType(int colTypeSeq)
+        {
+            RfCollateralType rfCollateralType = db.RfCollateralTypes.Find(colTypeSeq);
+
+            var result = db.RfCertTypes
+                .Where(p => p.ColFlag == rfCollateralType.ColLinkTable && p.Active == "1")
+                .Select(p => new { p.CertTypeId, p.CertTypeDesc })
+                .ToList();
+            return Ok(result);
+        }
+
+        [Route("Area")]
+        public IHttpActionResult GetArea()
+        {
+            var result = db.RfAreas
+                .Where(p => p.Active == "1")
+                .Select(p => new { p.AreaId, p.AreaName })
+                .ToList();
+            return Ok(result);
+        }
+
+        [Route("CityAll")]
+        public IHttpActionResult GetAllCity()
+        {
+            var result = db.RfCities
+                .Where(p => p.Active == "1")
+                .Select(p => new { p.CityId, p.CityName })
+                .ToList();
+            return Ok(result);
+        }
+
+        [Route("CityByArea/{AreaId}")]
+        public IHttpActionResult GetCityByArea(string areaId)
+        {
+            var result = db.RfCities
+                .Where(p => p.AreaId == areaId && p.Active == "1")
+                .Select(p => new { p.CityId, p.CityName })
+                .ToList();
+            return Ok(result);
+        }
+
+        [Route("BranchAll")]
+        public IHttpActionResult GetBranchByCity()
+        {
+            var result = db.RfBranches
+                .Where(p => p.Active == "1" && p.IsBranch == "1")
+                .Select(p => new { p.BranchCode, p.BranchName })
+                .ToList();
+            return Ok(result);
+        }
+
+        [Route("BranchByCity/{CityId}")]
+        public IHttpActionResult GetAllBranch(string cityId)
+        {
+            var result = db.RfBranches
+                .Where(p => p.CityId == cityId && p.Active == "1" && p.IsBranch == "1")
+                .Select(p => new { p.BranchCode, p.BranchName })
+                .ToList();
+            return Ok(result);
+        }
     }
 }
