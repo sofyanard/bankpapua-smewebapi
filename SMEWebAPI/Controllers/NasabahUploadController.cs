@@ -35,15 +35,15 @@ namespace SMEWebAPI.Controllers
                 return NotFound();
             }
 
-            string baseURL = Url.Content("~/");
-            string downloaddir = ConfigurationManager.AppSettings["DownloadDir"];
+            // string baseURL = Url.Content("~/");
+            string downloaddir = Url.Content(ConfigurationManager.AppSettings["DownloadDir"]);
 
             List<NasabahUploadView> nasabahUploadViews = new List<NasabahUploadView>();
 
             foreach (NasabahUpload nasabahUpload in nasabahUploads)
             {
                 NasabahUploadView nasabahUploadView = new NasabahUploadView(nasabahUpload);
-                nasabahUploadView.DownloadUrl = baseURL + downloaddir + nasabahUploadView.FileName;
+                nasabahUploadView.DownloadUrl = downloaddir + nasabahUploadView.FileName;
                 nasabahUploadViews.Add(nasabahUploadView);
             }
 

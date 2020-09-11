@@ -20,7 +20,7 @@
 
         <br />
 
-        <form name="form1" method="post" enctype="multipart/form-data" action="../api/nasabahupload">
+        <form id="form1" name="form1" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="token">Token</label>
                 <input type="text" class="form-control" id="token" name="token">
@@ -45,10 +45,13 @@
                     <button type="button" class="btn btn-primary" id="get" name="get">GET</button>
                 </div>
                 <div class="col-md-3">
-                    <button type="submit" class="btn btn-primary" id="submit" name="submit">POST</button>
+                    <button type="button" class="btn btn-primary" id="post" name="post">POST</button>
                 </div>
                 <div class="col-md-3">
-
+                    <div class="row">
+                        <select class="form-control" id="id" name="id"></select>
+                        <button type="button" class="btn btn-danger" id="delete" name="delete">DELETE</button>
+                    </div>
                 </div>
                 <div class="col-md-3">
 
@@ -90,7 +93,6 @@
                     <th scope="col">FileName</th>
                     <th scope="col">Caption</th>
                     <th scope="col"></th>
-                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody id="trbody">
@@ -113,7 +115,7 @@
             // GET
             $('#get').click(function () {
                 $.ajax({
-                    url: '../api/nasabahupload/',
+                    url: '../api/nasabahupload',
                     type: 'GET',
                     headers: {
                         "Authorization": "Bearer " + $('#token').val()
@@ -124,6 +126,69 @@
                         $('#msgsuccess').html(JSON.stringify(result));
 
                         showtable(result)
+
+                        $('#id').empty();
+                        $.each(result, function () {
+                            $('#id').append($("<option />").val(this.Id).text(this.Id));
+                        });
+                    },
+                    error: function error(xhr, status, error) {
+                        $('#diverror').show();
+                        $('#msgerror').html(xhr.responseText);
+                    },
+                    complete: function (xhr, status) {
+                        $('#divcomplete').show();
+                        $('#msgcomplete').html(xhr.status);
+                    }
+                });
+            });
+
+            // POST
+            $('#post').click(function () {
+                alert('POST!');
+                var form = $('#form1')[0];
+                var data = new FormData(form);
+
+                $.ajax({
+                    url: '../api/nasabahupload',
+                    type: 'POST',
+                    headers: {
+                        "Authorization": "Bearer " + $('#token').val()
+                    },
+                    enctype: 'multipart/form-data',
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    data: data,
+                    success: function (result) {
+                        $('#divsuccess').show();
+                        $('#msgsuccess').html(JSON.stringify(result));
+
+                    },
+                    error: function error(xhr, status, error) {
+                        $('#diverror').show();
+                        $('#msgerror').html(xhr.responseText);
+                    },
+                    complete: function (xhr, status) {
+                        $('#divcomplete').show();
+                        $('#msgcomplete').html(xhr.status);
+                    }
+                });
+            });
+
+            // DELETE
+            $('#delete').click(function () {
+                $.ajax({
+                    url: '../api/nasabahupload/' + $('#id').val(),
+                    type: 'DELETE',
+                    headers: {
+                        "Authorization": "Bearer " + $('#token').val()
+                    },
+                    contentType: 'application/json',
+                    success: function (result) {
+                        $('#divsuccess').show();
+                        $('#msgsuccess').html(JSON.stringify(result));
+
                     },
                     error: function error(xhr, status, error) {
                         $('#diverror').show();
@@ -142,7 +207,7 @@
             var trHTML = '';
             $.each(result, function (i, item) {
                 trHTML += '<tr><td>' + item.Id + '</td><td>' + item.NasabahId + '</td><td>' + item.FileName + '</td><td>' + item.Caption +
-                    '</td><td><a href="' + item.DownloadUrl + '">Download</a></td><td>' + '<a href="#">Delete</a>' + '</td></tr>';
+                    '</td><td><a href="' + item.DownloadUrl + '">Download</a></td></tr>';
             });
 
             $('#trbody').html('');
