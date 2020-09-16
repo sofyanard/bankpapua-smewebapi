@@ -100,6 +100,12 @@ namespace SMEWebAPI.Controllers
                 return BadRequest("Nasabah record is already exists");
             }
 
+            // check if identity number is already exist
+            if (db.Nasabahs.Any(p => p.NoIdentitas == nasabah.NoIdentitas))
+            {
+                return BadRequest("Nasabah identity number is already exists");
+            }
+
             db.Nasabahs.Add(nasabah);
             db.SaveChanges();
 
@@ -166,6 +172,12 @@ namespace SMEWebAPI.Controllers
             if (id != nasabah.Id)
             {
                 return BadRequest();
+            }
+
+            // check if identity number is already exist
+            if (db.Nasabahs.Any(p => p.NoIdentitas == nasabah.NoIdentitas && p.Id != nasabah.Id))
+            {
+                return BadRequest("Nasabah identity number is already exists");
             }
 
             db.Entry(nasabah).State = EntityState.Modified;
