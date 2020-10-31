@@ -87,6 +87,7 @@ namespace SMEWebAPI.Controllers
         public IHttpActionResult PostPengajuan(Pengajuan pengajuan)
         {
             pengajuan.NasabahId = this.GetNasabahId();
+            pengajuan.PengajuanDate = DateTime.Now;
             
             if (!ModelState.IsValid)
             {

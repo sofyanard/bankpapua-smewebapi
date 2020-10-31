@@ -15,6 +15,8 @@
         // [Required]
         public int NasabahId { get; set; }
 
+        public DateTime PengajuanDate { get; set; }
+
         [Required]
         [StringLength(10)]
         public string Product { get; set; }
