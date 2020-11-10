@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -25,6 +26,7 @@ namespace SMEWebAPI.Controllers
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
+        private LOSSME db = new LOSSME();
 
         public AccountController()
         {
@@ -337,6 +339,14 @@ namespace SMEWebAPI.Controllers
                 return GetErrorResult(result);
             }
 
+            // Automatically set Role to "Nasabah"
+            string nRoleId = db.AspNetRoles.Where(x => x.Name == "Nasabah").FirstOrDefault().Id;
+            AspNetUserRole aspNetUserRole = new AspNetUserRole();
+            aspNetUserRole.UserId = user.Id;
+            aspNetUserRole.RoleId = nRoleId;
+            db.AspNetUserRoles.Add(aspNetUserRole);
+            db.SaveChanges();
+
             return Ok();
         }
 
@@ -490,5 +500,29 @@ namespace SMEWebAPI.Controllers
         }
 
         #endregion
+
+        // GET: api/Account/Roles
+        public IHttpActionResult GetRoles()
+        {
+            string userId = User.Identity.GetUserId();
+
+            List<AspNetUserRole> aspNetUserRoles = db.AspNetUserRoles.Where(p => p.UserId == userId).ToList();
+
+            if ((aspNetUserRoles == null) || (aspNetUserRoles.Count == 0))
+            {
+                return NotFound();
+            }
+
+            List<RoleViewModel> roleViewModels = new List<RoleViewModel>();
+
+            foreach (var aspNetUserRole in aspNetUserRoles)
+            {
+                RoleViewModel roleViewModel = new RoleViewModel();
+                roleViewModel.RoleName = aspNetUserRole.AspNetRole.Name;
+                roleViewModels.Add(roleViewModel);
+            }
+
+            return Ok(roleViewModels);
+        }
     }
 }

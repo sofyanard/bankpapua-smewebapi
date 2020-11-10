@@ -222,6 +222,7 @@
     <Compile Include="LOSSME.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AspNetUserModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\PengajuanModels.cs" />
     <Compile Include="Models\NasabahUploadModels.cs" />
@@ -276,6 +277,7 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Test\AccountLogin.html" />
     <Content Include="Test\AccountRegister.html" />
+    <Content Include="Test\AccountRole.html" />
     <Content Include="Test\css\bootstrap.min.css" />
     <Content Include="Test\Index.html" />
     <Content Include="Test\js\bootstrap.min.js" />

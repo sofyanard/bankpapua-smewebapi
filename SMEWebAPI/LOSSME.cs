@@ -14,6 +14,9 @@ namespace SMEWebAPI
         {
         }
 
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserRole> AspNetUserRoles { get; set; }
         public virtual DbSet<Nasabah> Nasabahs { get; set; }
         public virtual DbSet<NasabahUpload> NasabahUploads { get; set; }
         public virtual DbSet<Pengajuan> Pengajuans { get; set; }
