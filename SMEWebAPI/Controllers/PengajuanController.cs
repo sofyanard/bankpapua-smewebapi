@@ -15,6 +15,7 @@ using SMEWebAPI.Models;
 namespace SMEWebAPI.Controllers
 {
     [Authorize]
+    [RoutePrefix("api/Pengajuan")]
     public class PengajuanController : ApiController
     {
         private LOSSME db = new LOSSME();
@@ -48,6 +49,7 @@ namespace SMEWebAPI.Controllers
         }
 
         // PUT: api/Pengajuan/5
+        /*
         [ResponseType(typeof(void))]
         public IHttpActionResult PutPengajuan(int id, Pengajuan pengajuan)
         {
@@ -81,6 +83,7 @@ namespace SMEWebAPI.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
+        */
 
         // POST: api/Pengajuan
         [ResponseType(typeof(Pengajuan))]
@@ -146,6 +149,30 @@ namespace SMEWebAPI.Controllers
             }
 
             return nasabah.Id;
+        }
+
+        // GET: api/Pengajuan/5/History
+        [Route("{id}/History")]
+        public IHttpActionResult GetHistory(int id)
+        {
+            Pengajuan pengajuan = db.Pengajuans.Find(id);
+            if (pengajuan == null)
+            {
+                return NotFound();
+            }
+
+            string losApRegno = pengajuan.LosApRegno.ToString();
+            if (losApRegno == "")
+            {
+                return NotFound();
+            }
+
+            var histories = db.TrackHistories.Where(p => p.ApRegno == losApRegno)
+                .OrderBy(p => new { p.ProdSeq, p.ThSeq })
+                .Select(p => new { p.ThSeq, p.TrackDate, p.RfTrack.TrackName })
+                .ToList();
+
+            return Ok(histories);
         }
     }
 }

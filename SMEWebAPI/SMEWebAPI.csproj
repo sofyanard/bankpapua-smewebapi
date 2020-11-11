@@ -224,6 +224,8 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AspNetUserModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\LosApplicationModels.cs" />
+    <Compile Include="Models\LosUserModels.cs" />
     <Compile Include="Models\PengajuanModels.cs" />
     <Compile Include="Models\NasabahUploadModels.cs" />
     <Compile Include="Models\ParameterModels.cs" />

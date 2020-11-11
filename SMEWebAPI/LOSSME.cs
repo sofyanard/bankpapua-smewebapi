@@ -38,6 +38,11 @@ namespace SMEWebAPI
         public virtual DbSet<RfArea> RfAreas { get; set; }
         public virtual DbSet<RfCity> RfCities { get; set; }
         public virtual DbSet<RfBranch> RfBranches { get; set; }
+        public virtual DbSet<RfTrack> RfTracks { get; set; }
+        public virtual DbSet<RfApplicationType> RfApplicationTypes { get; set; }
+        public virtual DbSet<TrackHistory> TrackHistories { get; set; }
+        public virtual DbSet<ScGroup> ScGroups { get; set; }
+        public virtual DbSet<ScUser> ScUsers { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -261,4 +261,32 @@
         [Column("ACTIVE")]
         public string Active { get; set; }
     }
+
+    [Table("RFTRACK")]
+    public class RfTrack
+    {
+        [Key]
+        [Column("TRACKCODE")]
+        public string TrackCode { get; set; }
+
+        [Column("TRACKNAME")]
+        public string TrackName { get; set; }
+
+        [Column("ACTIVE")]
+        public string Active { get; set; }
+    }
+
+    [Table("RFAPPLICATIONTYPE")]
+    public class RfApplicationType
+    {
+        [Key]
+        [Column("APPTYPEID")]
+        public string AppTypeId { get; set; }
+
+        [Column("APPTYPEDESC")]
+        public string AppTypeDesc { get; set; }
+
+        [Column("ACTIVE")]
+        public string Active { get; set; }
+    }
 }
