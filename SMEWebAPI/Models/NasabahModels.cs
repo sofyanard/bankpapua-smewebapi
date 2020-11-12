@@ -30,6 +30,9 @@ namespace SMEWebAPI.Models
         [StringLength(10)]
         public string JenisKelamin { get; set; }
 
+        [ForeignKey("JenisKelamin")]
+        public virtual RfSex RfSex { get; set; }
+
         [Required]
         [StringLength(50)]
         public string TempatLahir { get; set; }
