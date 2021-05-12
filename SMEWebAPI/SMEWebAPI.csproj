@@ -45,6 +45,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DMS.CuBESCore, Version=1.0.1923.21407, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\DMS.CuBESCore.dll</HintPath>
+    </Reference>
+    <Reference Include="DMS.DBConnection, Version=1.0.1830.30636, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\DMS.DBConnection.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
@@ -214,6 +222,9 @@
     <Compile Include="Controllers\ParameterController.cs" />
     <Compile Include="Controllers\PengajuanController.cs" />
     <Compile Include="Controllers\SimulasiController.cs" />
+    <Compile Include="Controllers\SiteVisitKantorController.cs" />
+    <Compile Include="Controllers\SiteVisitRumahController.cs" />
+    <Compile Include="Controllers\SiteVisitUsahaController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -231,6 +242,7 @@
     <Compile Include="Models\ParameterModels.cs" />
     <Compile Include="Models\SimulasiModels.cs" />
     <Compile Include="Models\NasabahModels.cs" />
+    <Compile Include="Models\SiteVisitModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -291,6 +303,9 @@
     <Content Include="Test\NasabahSaudara.html" />
     <Content Include="Test\NasabahUpload.html" />
     <Content Include="Test\Simulasi.html" />
+    <Content Include="Test\SiteVisitKantor.html" />
+    <Content Include="Test\SiteVisitRumah.html" />
+    <Content Include="Test\SiteVisitUsaha.html" />
     <Content Include="Test\UploadFile.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -309,6 +324,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\SiteVisitUsaha\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

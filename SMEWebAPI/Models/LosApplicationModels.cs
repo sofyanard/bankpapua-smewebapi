@@ -44,4 +44,15 @@
         [Column("TH_TRACKDATE")]
         public DateTime? TrackDate { get; set; }
     }
+
+    [Table("APPLICATION")]
+    public class Application
+    {
+        [Key]
+        [Column("AP_REGNO")]
+        public string ApRegno { get; set; }
+
+        [Column("CU_REF")]
+        public string CuRef { get; set; }
+    }
 }

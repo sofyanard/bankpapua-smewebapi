@@ -1,0 +1,251 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-select.min.css">
+
+    <title>Hello, world!</title>
+</head>
+<body>
+    <div class="container">
+        <p>
+            <a href="Index.html">Index</a>
+        </p>
+
+        <h1>SiteVisit - Rumah</h1>
+
+        <br />
+
+        <form>
+            <div class="form-group">
+                <label for="token">Token</label>
+                <input type="text" class="form-control" id="token" name="token">
+            </div>
+
+            <div class="form-group">
+                <label for="id">Id</label>
+                <select class="form-control" id="id" name="id"></select>
+            </div>
+
+            <br />
+
+            <div class="row">
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary" id="getall" name="getid">GET ALL</button>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary" id="get" name="get">GET / ID</button>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary" id="gethistory" name="put">GET HISTORY / ID</button>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary" id="post" name="post">POST</button>
+                </div>
+            </div>
+
+        </form>
+
+        <br />
+
+        <div class="alert alert-success alert-dismissible" role="alert" id="divsuccess">
+            <span id="msgsuccess"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="alert alert-danger alert-dismissible" role="alert" id="diverror">
+            <span id="msgerror"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="alert alert-info alert-dismissible" role="alert" id="divcomplete">
+            <span id="msgcomplete"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-select.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#divsuccess').hide();
+            $('#diverror').hide();
+            $('#divcomplete').hide();
+
+            /*
+
+            // Product
+            $.ajax({
+                url: '../api/parameter/product',
+                contentType: 'application/json',
+                success: function (result) {
+                    $.each(result, function () {
+                        $('#product').append($("<option />").val(this.ProductId).text(this.ProductDesc));
+                    });
+                }
+            });
+
+            */
+
+            // POST
+            $('#post').click(function () {
+
+                if ($('#collateralflag').val() == "1") {
+                    var data = JSON.stringify({
+                        Product: $('#product').val(),
+                        Limit: $('#limit').val(),
+                        Tenor: $('#tenor').val(),
+                        Purpose: $('#purpose').val(),
+                        CollateralFlag: $('#collateralflag').val(),
+                        CollateralType: $('#collateraltype').val(),
+                        CollateralValue: $('#collateralvalue').val(),
+                        CertificateType: $('#certificatetype').val(),
+                        CertificateNo: $('#certificateno').val(),
+                        BranchCode: $('#branchcode').val()
+                    });
+                } else {
+                    var data = JSON.stringify({
+                        Product: $('#product').val(),
+                        Limit: $('#limit').val(),
+                        Tenor: $('#tenor').val(),
+                        Purpose: $('#purpose').val(),
+                        CollateralFlag: $('#collateralflag').val(),
+                        BranchCode: $('#branchcode').val()
+                    });
+                }
+
+                $.ajax({
+                    url: '../api/pengajuan',
+                    type: 'POST',
+                    headers: {
+                        "Authorization": "Bearer " + $('#token').val()
+                    },
+                    contentType: 'application/json',
+                    //dataType: 'application/json',
+                    data: data,
+                    success: function (result) {
+                        $('#divsuccess').show();
+                        $('#msgsuccess').html(JSON.stringify(result));
+                    },
+                    error: function error(xhr, status, error) {
+                        $('#diverror').show();
+                        $('#msgerror').html(xhr.responseText);
+                    },
+                    complete: function (xhr, status) {
+                        $('#divcomplete').show();
+                        $('#msgcomplete').html(xhr.status);
+                    }
+                });
+            });
+
+            // GET ALL
+            $('#getall').click(function () {
+                $.ajax({
+                    url: '../api/sitevisitrumah',
+                    type: 'GET',
+                    headers: {
+                        "Authorization": "Bearer " + $('#token').val()
+                    },
+                    contentType: 'application/json',
+                    success: function (result) {
+                        $('#divsuccess').show();
+                        $('#msgsuccess').html(JSON.stringify(result));
+
+                        $('#id').empty();
+                        $.each(result, function () {
+                            $('#id').append($("<option />").val(this.ApRegno).text(this.ApRegno));
+                        });
+                    },
+                    error: function error(xhr, status, error) {
+                        $('#diverror').show();
+                        $('#msgerror').html(xhr.responseText);
+                    },
+                    complete: function (xhr, status) {
+                        $('#divcomplete').show();
+                        $('#msgcomplete').html(xhr.status);
+                    }
+                });
+            });
+
+            // GET / ID
+            $('#get').click(function () {
+                $.ajax({
+                    url: '../api/pengajuan/' + $('#id').val(),
+                    type: 'GET',
+                    headers: {
+                        "Authorization": "Bearer " + $('#token').val()
+                    },
+                    contentType: 'application/json',
+                    success: function (result) {
+                        $('#divsuccess').show();
+                        $('#msgsuccess').html(JSON.stringify(result));
+
+                        $('#nasabahid').val(result.NasabahId);
+                        $('#product').val(result.Product);
+                        $('#limit').val(result.Limit);
+                        $('#tenor').val(result.Tenor);
+                        $('#purpose').val(result.Purpose);
+                        $('#collateralflag').val(result.CollateralFlag);
+                        $('#collateraltype').val(result.CollateralType);
+                        $('#collateralvalue').val(result.CollateralValue);
+                        $('#certificatetype').val(result.CertificateType);
+                        $('#certificateno').val(result.CertificateNo);
+                        $('#branchcode').val(result.BranchCode);
+                    },
+                    error: function error(xhr, status, error) {
+                        $('#diverror').show();
+                        $('#msgerror').html(xhr.responseText);
+                    },
+                    complete: function (xhr, status) {
+                        $('#divcomplete').show();
+                        $('#msgcomplete').html(xhr.status);
+                    }
+                });
+            });
+
+            // GET HISTORY / ID
+            $('#gethistory').click(function () {
+                $.ajax({
+                    url: '../api/pengajuan/' + $('#id').val() + '/history',
+                    type: 'GET',
+                    headers: {
+                        "Authorization": "Bearer " + $('#token').val()
+                    },
+                    contentType: 'application/json',
+                    success: function (result) {
+                        $('#divsuccess').show();
+                        $('#msgsuccess').html(JSON.stringify(result));
+
+
+                    },
+                    error: function error(xhr, status, error) {
+                        $('#diverror').show();
+                        $('#msgerror').html(xhr.responseText);
+                    },
+                    complete: function (xhr, status) {
+                        $('#divcomplete').show();
+                        $('#msgcomplete').html(xhr.status);
+                    }
+                });
+            });
+
+        });
+    </script>
+</body>
+</html>
