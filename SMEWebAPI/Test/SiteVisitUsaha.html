@@ -96,6 +96,23 @@
                 </div>
             </div>
 
+            <br />
+
+            <div class="row">
+                <div class="col-md-3">
+                    
+                </div>
+                <div class="col-md-3">
+                    
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-secondary" id="upload" name="upload">UPLOAD / ID</button>
+                </div>
+                <div class="col-md-3">
+                    
+                </div>
+            </div>
+
         </form>
 
         <br />
@@ -282,6 +299,15 @@
                         $('#msgcomplete').html(xhr.status);
                     }
                 });
+            });
+
+            // UPLOAD / ID
+            $('#upload').click(function () {
+                if ($('#apRegno').val() == null) {
+                    alert('ApRegno harus dipilih!');
+                    return;
+                }
+                window.location.replace('../test/SiteVisitUpload.html?apregno=' + $('#apRegno').val());
             });
 
         });

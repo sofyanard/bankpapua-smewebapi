@@ -1,0 +1,221 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <title>Hello, world!</title>
+</head>
+<body>
+    <div class="container">
+        <p>
+            <a href="Index.html">Index</a>
+        </p>
+
+        <h1>SiteVisit - Upload</h1>
+
+        <br />
+
+        <div class="form-group">
+            <label for="apRegno">ApRegno</label>
+            <input type="text" class="form-control" id="apRegno" name="apRegno" readonly>
+        </div>
+
+        <br />
+
+        <form id="form1" name="form1" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="token">Token</label>
+                <input type="text" class="form-control" id="token" name="token">
+            </div>
+
+            <hr />
+
+            <div class="form-group">
+                <label for="file">File</label>
+                <input type="file" class="form-control" id="file" name="file" required>
+            </div>
+
+            <br />
+
+            <div class="row">
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary" id="get" name="get">GET</button>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary" id="post" name="post">POST</button>
+                </div>
+                <div class="col-md-3">
+                    <div class="row">
+                        <select class="form-control" id="seq" name="seq"></select>
+                        <button type="button" class="btn btn-danger" id="delete" name="delete">DELETE</button>
+                    </div>
+                </div>
+                <div class="col-md-3">
+
+                </div>
+            </div>
+
+        </form>
+
+        <br />
+
+        <div class="alert alert-success alert-dismissible" role="alert" id="divsuccess">
+            <span id="msgsuccess"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="alert alert-danger alert-dismissible" role="alert" id="diverror">
+            <span id="msgerror"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="alert alert-info alert-dismissible" role="alert" id="divcomplete">
+            <span id="msgcomplete"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <br />
+
+        <table class="table table-striped" id="ttable">
+            <thead>
+                <tr>
+                    <th scope="col">Seq</th>
+                    <th scope="col">FileName</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody id="trbody">
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#divsuccess').hide();
+            $('#diverror').hide();
+            $('#divcomplete').hide();
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const myParam = urlParams.get('apregno');
+            $('#apRegno').val(myParam);
+
+            // GET
+            $('#get').click(function () {
+                $.ajax({
+                    url: '../api/sitevisitupload/' + $('#apRegno').val(),
+                    type: 'GET',
+                    headers: {
+                        "Authorization": "Bearer " + $('#token').val()
+                    },
+                    contentType: 'application/json',
+                    success: function (result) {
+                        $('#divsuccess').show();
+                        $('#msgsuccess').html(JSON.stringify(result));
+
+                        showtable(result)
+
+                        $('#seq').empty();
+                        $.each(result, function () {
+                            $('#seq').append($("<option />").val(this.Seq).text(this.Seq));
+                        });
+                    },
+                    error: function error(xhr, status, error) {
+                        $('#diverror').show();
+                        $('#msgerror').html(xhr.responseText);
+                    },
+                    complete: function (xhr, status) {
+                        $('#divcomplete').show();
+                        $('#msgcomplete').html(xhr.status);
+                    }
+                });
+            });
+
+            // POST
+            $('#post').click(function () {
+                var form = $('#form1')[0];
+                var data = new FormData(form);
+
+                $.ajax({
+                    url: '../api/sitevisitupload/' + $('#apRegno').val(),
+                    type: 'POST',
+                    headers: {
+                        "Authorization": "Bearer " + $('#token').val()
+                    },
+                    enctype: 'multipart/form-data',
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    data: data,
+                    success: function (result) {
+                        $('#divsuccess').show();
+                        $('#msgsuccess').html(JSON.stringify(result));
+
+                    },
+                    error: function error(xhr, status, error) {
+                        $('#diverror').show();
+                        $('#msgerror').html(xhr.responseText);
+                    },
+                    complete: function (xhr, status) {
+                        $('#divcomplete').show();
+                        $('#msgcomplete').html(xhr.status);
+                    }
+                });
+            });
+
+            // DELETE
+            $('#delete').click(function () {
+                $.ajax({
+                    url: '../api/sitevisitupload/' + $('#apRegno').val() + '/' + $('#seq').val(),
+                    type: 'DELETE',
+                    headers: {
+                        "Authorization": "Bearer " + $('#token').val()
+                    },
+                    contentType: 'application/json',
+                    success: function (result) {
+                        $('#divsuccess').show();
+                        $('#msgsuccess').html(JSON.stringify(result));
+
+                    },
+                    error: function error(xhr, status, error) {
+                        $('#diverror').show();
+                        $('#msgerror').html(xhr.responseText);
+                    },
+                    complete: function (xhr, status) {
+                        $('#divcomplete').show();
+                        $('#msgcomplete').html(xhr.status);
+                    }
+                });
+            });
+
+        });
+
+        function showtable(result) {
+            var trHTML = '';
+            $.each(result, function (i, item) {
+                trHTML += '<tr><td>' + item.Seq + '</td><td>' + item.FuFileName +
+                    '</td><td><a href="' + item.DownloadUrl + '">Download</a></td></tr>';
+            });
+
+            $('#trbody').html('');
+            $('#trbody').append(trHTML);
+        }
+    </script>
+</body>
+</html>

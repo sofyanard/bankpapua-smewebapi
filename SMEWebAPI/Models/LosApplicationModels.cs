@@ -55,4 +55,45 @@
         [Column("CU_REF")]
         public string CuRef { get; set; }
     }
+
+    [Table("DOCUPLOAD_FILEUPLOAD")]
+    public class DocUploadFileUpload
+    {
+        [Key]
+        [Column("AP_REGNO", Order = 1)]
+        public string ApRegno { get; set; }
+
+        [Key]
+        [Column("GROUPFILE", Order = 2)]
+        public string GroupFile { get; set; }
+
+        [Key]
+        [Column("SEQ", Order = 3)]
+        public int Seq { get; set; }
+
+        [Column("FU_FILENAME")]
+        public string FuFileName { get; set; }
+
+        [Column("FU_DATE")]
+        public DateTime FuDate { get; set; }
+
+        [Column("FU_USERID")]
+        public string FuUserId { get; set; }
+    }
+
+    [NotMapped]
+    public class DocUploadFileUploadView : DocUploadFileUpload
+    {
+        public string DownloadUrl { get; set; }
+
+        public DocUploadFileUploadView(DocUploadFileUpload docUploadFileUpload)
+        {
+            this.ApRegno = docUploadFileUpload.ApRegno;
+            this.GroupFile = docUploadFileUpload.GroupFile;
+            this.Seq = docUploadFileUpload.Seq;
+            this.FuFileName = docUploadFileUpload.FuFileName;
+            this.FuDate = docUploadFileUpload.FuDate;
+            this.FuUserId = docUploadFileUpload.FuUserId;
+        }
+    }
 }

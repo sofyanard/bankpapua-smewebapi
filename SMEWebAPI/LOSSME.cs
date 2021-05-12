@@ -45,6 +45,7 @@ namespace SMEWebAPI
         public virtual DbSet<ScGroup> ScGroups { get; set; }
         public virtual DbSet<ScUser> ScUsers { get; set; }
         public virtual DbSet<CustSiteVisit> CustSiteVisits { get; set; }
+        public virtual DbSet<DocUploadFileUpload> DocUploadFileUploads { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -224,6 +224,7 @@
     <Compile Include="Controllers\SimulasiController.cs" />
     <Compile Include="Controllers\SiteVisitKantorController.cs" />
     <Compile Include="Controllers\SiteVisitRumahController.cs" />
+    <Compile Include="Controllers\SiteVisitUploadController.cs" />
     <Compile Include="Controllers\SiteVisitUsahaController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -305,6 +306,7 @@
     <Content Include="Test\Simulasi.html" />
     <Content Include="Test\SiteVisitKantor.html" />
     <Content Include="Test\SiteVisitRumah.html" />
+    <Content Include="Test\SiteVisitUpload.html" />
     <Content Include="Test\SiteVisitUsaha.html" />
     <Content Include="Test\UploadFile.html" />
     <Content Include="Web.config" />
