@@ -183,5 +183,29 @@ namespace SMEWebAPI.Controllers
                 .ToList();
             return Ok(result);
         }
+
+        [Route("ApprMarketability")]
+        public IHttpActionResult GetApprMarketability()
+        {
+            return Ok(db.RfApprMarketabilities);
+        }
+
+        [Route("ApprIkatSempurna")]
+        public IHttpActionResult GetApprIkatSempurna()
+        {
+            return Ok(db.RfApprIkatSempurnas);
+        }
+
+        [Route("ApprKuasa")]
+        public IHttpActionResult GetApprKuasa()
+        {
+            return Ok(db.RfApprKuasas);
+        }
+
+        [Route("ApprMasalah")]
+        public IHttpActionResult GetApprMasalah()
+        {
+            return Ok(db.RfApprMasalahs);
+        }
     }
 }

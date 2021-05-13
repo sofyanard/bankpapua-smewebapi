@@ -289,4 +289,60 @@
         [Column("ACTIVE")]
         public string Active { get; set; }
     }
+
+    [Table("RF_APPR_MARKETABILITY")]
+    public class RfApprMarketability
+    {
+        [Key]
+        [Column("APPR_MRCODE")]
+        public string ApprMrCode { get; set; }
+
+        [Column("APPR_MRDESC")]
+        public string ApprMrDesc { get; set; }
+
+        [Column("ACTIVE")]
+        public string Active { get; set; }
+    }
+
+    [Table("RF_APPR_IKATSEMPURNA")]
+    public class RfApprIkatSempurna
+    {
+        [Key]
+        [Column("APPR_IKSCODE")]
+        public string ApprIksCode { get; set; }
+
+        [Column("APPR_IKSDESC")]
+        public string ApprIksDesc { get; set; }
+
+        [Column("ACTIVE")]
+        public string Active { get; set; }
+    }
+
+    [Table("RF_APPR_KUASA")]
+    public class RfApprKuasa
+    {
+        [Key]
+        [Column("APPR_KUCODE")]
+        public string ApprKuCode { get; set; }
+
+        [Column("APPR_KUDESC")]
+        public string ApprKuDesc { get; set; }
+
+        [Column("ACTIVE")]
+        public string Active { get; set; }
+    }
+
+    [Table("RF_APPR_MASALAH")]
+    public class RfApprMasalah
+    {
+        [Key]
+        [Column("APPR_PMCODE")]
+        public string ApprPmCode { get; set; }
+
+        [Column("APPR_PMDESC")]
+        public string ApprPmDesc { get; set; }
+
+        [Column("ACTIVE")]
+        public string Active { get; set; }
+    }
 }

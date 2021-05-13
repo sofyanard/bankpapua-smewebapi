@@ -13,21 +13,20 @@ using SMEWebAPI.Models;
 namespace SMEWebAPI.Controllers
 {
     [Authorize]
-    [RoutePrefix("api/SiteVisitUpload")]
-    public class SiteVisitUploadController : ApiController
+    [RoutePrefix("api/AppraisalUpload")]
+    public class AppraisalUploadController : ApiController
     {
         private LOSSME db = new LOSSME();
 
-        // GET: api/SiteVisitUpload
-        [Route("{apRegno}")]
-        public IHttpActionResult GetAll(string apRegno)
+        // GET: api/AppraisalUpload/{apRegno}/{cuRef}/{clSeq}
+        [Route("{apRegno}/{cuRef}/{clSeq}")]
+        public IHttpActionResult GetAll(string apRegno, string cuRef, int clSeq)
         {
-            List<DocUploadFileUpload> listDocUploadFileUpload = db.DocUploadFileUploads
-                .Where(p => p.ApRegno == apRegno && p.GroupFile == "SVUPLOAD")
-                .OrderBy(p => p.Seq)
+            List<AppraisalNewFileUpload> listAppraisalNewFileUpload = db.AppraisalNewFileUploads
+                .Where(p => p.ApRegno == apRegno && p.CuRef == cuRef && p.ClSeq == clSeq)
                 .ToList();
 
-            if ((listDocUploadFileUpload == null) || (listDocUploadFileUpload.Count == 0))
+            if ((listAppraisalNewFileUpload == null) || (listAppraisalNewFileUpload.Count == 0))
             {
                 return NotFound();
             }
@@ -35,21 +34,21 @@ namespace SMEWebAPI.Controllers
             // string baseURL = Url.Content("~/");
             string downloaddir = Url.Content(ConfigurationManager.AppSettings["DownloadDir"]);
 
-            List<DocUploadFileUploadView> listDocUploadFileUploadView = new List<DocUploadFileUploadView>();
+            List<AppraisalNewFileUploadView> listAppraisalNewFileUploadView = new List<AppraisalNewFileUploadView>();
 
-            foreach (DocUploadFileUpload docUploadFileUpload in listDocUploadFileUpload)
+            foreach (AppraisalNewFileUpload appraisalNewFileUpload in listAppraisalNewFileUpload)
             {
-                DocUploadFileUploadView docUploadFileUploadView = new DocUploadFileUploadView(docUploadFileUpload);
-                docUploadFileUploadView.DownloadUrl = downloaddir + docUploadFileUpload.FuFileName;
-                listDocUploadFileUploadView.Add(docUploadFileUploadView);
+                AppraisalNewFileUploadView appraisalNewFileUploadView = new AppraisalNewFileUploadView(appraisalNewFileUpload);
+                appraisalNewFileUploadView.DownloadUrl = downloaddir + appraisalNewFileUpload.FuFileName;
+                listAppraisalNewFileUploadView.Add(appraisalNewFileUploadView);
             }
 
-            return Ok(listDocUploadFileUploadView);
+            return Ok(listAppraisalNewFileUploadView);
         }
 
-        // POST: api/SiteVisitUpload
-        [Route("{apRegno}")]
-        public async Task<HttpResponseMessage> PostFormData(string apRegno)
+        // POST: api/AppraisalUpload/{apRegno}/{cuRef}/{clSeq}
+        [Route("{apRegno}/{cuRef}/{clSeq}")]
+        public async Task<HttpResponseMessage> PostFormData(string apRegno, string cuRef, int clSeq)
         {
             // Check if the request contains multipart/form-data.
             if (!Request.Content.IsMimeMultipartContent())
@@ -103,15 +102,15 @@ namespace SMEWebAPI.Controllers
                     File.Move(localfilepath, filepath);
                 }
 
-                // Get Max Seq from Table DocUploadFileUpload
-                DocUploadFileUpload maxDocUploadFileUpload = db.DocUploadFileUploads
-                    .Where(p => p.GroupFile == "SVUPLOAD")
-                    .OrderByDescending(p => p.Seq)
+                // Get Max Seq from Table AppraisalNewFileUpload
+                AppraisalNewFileUpload appraisalNewFileUpload = db.AppraisalNewFileUploads
+                    .Where(p => p.ApRegno == apRegno && p.CuRef == cuRef && p.ClSeq == clSeq)
+                    .OrderByDescending(p => p.FuSeq)
                     .FirstOrDefault();
-                int nextSeq = 1;
-                if (maxDocUploadFileUpload != null)
+                int nextFuSeq = 1;
+                if (appraisalNewFileUpload != null)
                 {
-                    nextSeq = maxDocUploadFileUpload.Seq + 1;
+                    nextFuSeq = appraisalNewFileUpload.FuSeq + 1;
                 }
 
                 // Get User from Table ScUser
@@ -123,19 +122,20 @@ namespace SMEWebAPI.Controllers
                     userId = scUser.UserId;
                 }
 
-                // Insert to Table DocUploadFileUpload
-                DocUploadFileUpload docUploadFileUpload = new DocUploadFileUpload();
-                docUploadFileUpload.ApRegno = apRegno;
-                docUploadFileUpload.GroupFile = "SVUPLOAD";
-                docUploadFileUpload.Seq = nextSeq;
-                docUploadFileUpload.FuFileName = filename;
-                docUploadFileUpload.FuDate = DateTime.Now;
-                docUploadFileUpload.FuUserId = userId;
+                // Insert to Table AppraisalNewFileUpload
+                AppraisalNewFileUpload newAppraisalNewFileUpload = new AppraisalNewFileUpload();
+                newAppraisalNewFileUpload.ApRegno = apRegno;
+                newAppraisalNewFileUpload.CuRef = cuRef;
+                newAppraisalNewFileUpload.ClSeq = clSeq;
+                newAppraisalNewFileUpload.FuSeq = nextFuSeq;
+                newAppraisalNewFileUpload.FuFileName = filename;
+                newAppraisalNewFileUpload.FuDate = DateTime.Now;
+                newAppraisalNewFileUpload.FuUserId = userId;
 
-                db.DocUploadFileUploads.Add(docUploadFileUpload);
+                db.AppraisalNewFileUploads.Add(newAppraisalNewFileUpload);
                 db.SaveChanges();
 
-                return Request.CreateResponse(HttpStatusCode.OK, docUploadFileUpload);
+                return Request.CreateResponse(HttpStatusCode.OK, newAppraisalNewFileUpload);
             }
             catch (Exception e)
             {
@@ -143,24 +143,24 @@ namespace SMEWebAPI.Controllers
             }
         }
 
-        // DELETE: api/SiteVisitUpload/5/1
-        [Route("{apRegno}/{seq}")]
-        public IHttpActionResult Delete(string apRegno, int seq)
+        // DELETE: api/AppraisalUpload/{apRegno}/{cuRef}/{clSeq}/{fuSeq}
+        [Route("{apRegno}/{cuRef}/{clSeq}/{fuSeq}")]
+        public IHttpActionResult Delete(string apRegno, string cuRef, int clSeq, int fuSeq)
         {
-            DocUploadFileUpload docUploadFileUpload = db.DocUploadFileUploads
-                .Where(p => p.ApRegno == apRegno && p.GroupFile == "SVUPLOAD" && p.Seq == seq).FirstOrDefault();
+            AppraisalNewFileUpload appraisalNewFileUpload = db.AppraisalNewFileUploads
+                .Where(p => p.ApRegno == apRegno && p.CuRef == cuRef && p.ClSeq == clSeq && p.FuSeq == fuSeq).FirstOrDefault();
             
-            if (docUploadFileUpload == null)
+            if (appraisalNewFileUpload == null)
             {
                 return NotFound();
             }
 
-            db.DocUploadFileUploads.Remove(docUploadFileUpload);
+            db.AppraisalNewFileUploads.Remove(appraisalNewFileUpload);
             db.SaveChanges();
 
             // Delete File
             string root = ConfigurationManager.AppSettings["UploadPath"];
-            string filepath = Path.Combine(root, docUploadFileUpload.FuFileName);
+            string filepath = Path.Combine(root, appraisalNewFileUpload.FuFileName);
             try
             {
                 if (File.Exists(filepath))
@@ -173,7 +173,7 @@ namespace SMEWebAPI.Controllers
                 return InternalServerError(e);
             }
 
-            return Ok(docUploadFileUpload);
+            return Ok(appraisalNewFileUpload);
         }
     }
 }

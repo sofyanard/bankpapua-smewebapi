@@ -17,7 +17,7 @@
             <a href="Index.html">Index</a>
         </p>
 
-        <h1>SiteVisit - Usaha</h1>
+        <h1>Appraisal</h1>
 
         <br />
 
@@ -28,55 +28,58 @@
             </div>
 
             <div class="form-group">
-                <label for="apRegno">ApRegno</label>
-                <select class="form-control" id="apRegno" name="apRegno"></select>
-            </div>
-
-            <input type="hidden" id="cuRef" name="cuRef">
-
-            <div class="form-group">
-                <label for="tanggalInvestigasi">Tanggal Investigasi</label>
-                <input type="date" class="form-control" id="tanggalInvestigasi" name="tanggalInvestigasi">
+                <label for="apRegno"><b>ApRegno (Application No)*</b></label>
+                <input type="text" class="form-control" id="apRegno" name="apRegno">
             </div>
 
             <div class="form-group">
-                <label for="namaPemberiKeterangan">Nama Pemberi Keterangan</label>
-                <input type="text" class="form-control" id="namaPemberiKeterangan" name="namaPemberiKeterangan">
+                <label for="cuRef"><b>CuRef (Customer Ref No)*</b></label>
+                <input type="text" class="form-control" id="cuRef" name="cuRef">
             </div>
 
             <div class="form-group">
-                <label for="alamatKantor">Alamat Kantor</label>
-                <textarea type="text" class="form-control" id="alamatKantor" name="alamatKantor"></textarea>
+                <label for="clSeq"><b>ClSeq (Collateral Seq No)*</b></label>
+                <input type="text" class="form-control" id="clSeq" name="clSeq">
             </div>
 
             <div class="form-group">
-                <label for="alamatPabrik">Alamat Pabrik</label>
-                <textarea type="text" class="form-control" id="alamatPabrik" name="alamatPabrik"></textarea>
+                <label for="apprDate">Tanggal Penilaian</label>
+                <input type="date" class="form-control" id="apprDate" name="apprDate">
             </div>
 
             <div class="form-group">
-                <label for="aspekManagement">Aspek Management</label>
-                <textarea type="text" class="form-control" id="aspekManagement" name="aspekManagement"></textarea>
+                <label for="apprValueBank">Nilai Bank</label>
+                <input type="number" class="form-control" id="apprValueBank" name="apprValueBank">
             </div>
 
             <div class="form-group">
-                <label for="aspekProduksi">Aspek Produksi</label>
-                <textarea type="text" class="form-control" id="aspekProduksi" name="aspekProduksi"></textarea>
+                <label for="apprValuePasar">Nilai Pasar</label>
+                <input type="number" class="form-control" id="apprValuePasar" name="apprValuePasar">
             </div>
 
             <div class="form-group">
-                <label for="aspekPemasaran">Aspek Pemasaran</label>
-                <textarea type="text" class="form-control" id="aspekPemasaran" name="aspekPemasaran"></textarea>
+                <label for="apprValueLikuidasi">Nilai Likuidasi</label>
+                <input type="number" class="form-control" id="apprValueLikuidasi" name="apprValueLikuidasi">
             </div>
 
             <div class="form-group">
-                <label for="aspekKeuangan">Aspek Keuangan</label>
-                <textarea type="text" class="form-control" id="aspekKeuangan" name="aspekKeuangan"></textarea>
+                <label for="apprMrCode">Marketability</label>
+                <select class="form-control" id="apprMrCode" name="apprMrCode"></select>
             </div>
 
             <div class="form-group">
-                <label for="aspekAgunan">Aspek Agunan</label>
-                <textarea type="text" class="form-control" id="aspekAgunan" name="aspekAgunan"></textarea>
+                <label for="apprIksCode">Pengikatan Sempurna</label>
+                <select class="form-control" id="apprIksCode" name="apprIksCode"></select>
+            </div>
+
+            <div class="form-group">
+                <label for="apprKuCode">Penguasaan</label>
+                <select class="form-control" id="apprKuCode" name="apprKuCode"></select>
+            </div>
+
+            <div class="form-group">
+                <label for="apprPmCode">Permasalahan</label>
+                <select class="form-control" id="apprPmCode" name="apprPmCode"></select>
             </div>
 
             <br />
@@ -100,16 +103,16 @@
 
             <div class="row">
                 <div class="col-md-3">
-                    
+
                 </div>
                 <div class="col-md-3">
-                    
+
                 </div>
                 <div class="col-md-3">
                     <button type="button" class="btn btn-secondary" id="upload" name="upload">UPLOAD / ID</button>
                 </div>
                 <div class="col-md-3">
-                    
+
                 </div>
             </div>
 
@@ -152,10 +155,54 @@
             $('#diverror').hide();
             $('#divcomplete').hide();
 
+            // Marketability
+            $.ajax({
+                url: '../api/parameter/apprmarketability',
+                contentType: 'application/json',
+                success: function (result) {
+                    $.each(result, function () {
+                        $('#apprMrCode').append($("<option />").val(this.ApprMrCode).text(this.ApprMrDesc));
+                    });
+                }
+            });
+
+            // Pengikatan Sempurna
+            $.ajax({
+                url: '../api/parameter/apprikatsempurna',
+                contentType: 'application/json',
+                success: function (result) {
+                    $.each(result, function () {
+                        $('#apprIksCode').append($("<option />").val(this.ApprIksCode).text(this.ApprIksDesc));
+                    });
+                }
+            });
+
+            // Penguasaan
+            $.ajax({
+                url: '../api/parameter/apprkuasa',
+                contentType: 'application/json',
+                success: function (result) {
+                    $.each(result, function () {
+                        $('#apprKuCode').append($("<option />").val(this.ApprKuCode).text(this.ApprKuDesc));
+                    });
+                }
+            });
+
+            // Permasalahan
+            $.ajax({
+                url: '../api/parameter/apprmasalah',
+                contentType: 'application/json',
+                success: function (result) {
+                    $.each(result, function () {
+                        $('#apprPmCode').append($("<option />").val(this.ApprPmCode).text(this.ApprPmDesc));
+                    });
+                }
+            });
+
             // GET ALL
             $('#getall').click(function () {
                 $.ajax({
-                    url: '../api/sitevisitusaha',
+                    url: '../api/appraisal',
                     type: 'GET',
                     headers: {
                         "Authorization": "Bearer " + $('#token').val()
@@ -165,10 +212,7 @@
                         $('#divsuccess').show();
                         $('#msgsuccess').html(JSON.stringify(result));
 
-                        $('#apRegno').empty();
-                        $.each(result, function () {
-                            $('#apRegno').append($("<option />").val(this.ApRegno).text(this.ApRegno));
-                        });
+
                     },
                     error: function error(xhr, status, error) {
                         $('#diverror').show();
@@ -184,7 +228,7 @@
             // GET / ID
             $('#get').click(function () {
                 $.ajax({
-                    url: '../api/sitevisitusaha/' + $('#apRegno').val(),
+                    url: '../api/appraisal/' + $('#apRegno').val() + '/' + $('#cuRef').val() + '/' + $('#clSeq').val(),
                     type: 'GET',
                     headers: {
                         "Authorization": "Bearer " + $('#token').val()
@@ -194,16 +238,14 @@
                         $('#divsuccess').show();
                         $('#msgsuccess').html(JSON.stringify(result));
 
-                        $('#cuRef').val(result.CuRef);
-                        $('#tanggalInvestigasi').val(result.TanggalInvestigasi);
-                        $('#namaPemberiKeterangan').val(result.NamaPemberiKeterangan);
-                        $('#alamatKantor').val(result.AlamatKantor);
-                        $('#alamatPabrik').val(result.AlamatPabrik);
-                        $('#aspekManagement').val(result.AspekManagement);
-                        $('#aspekProduksi').val(result.AspekProduksi);
-                        $('#aspekPemasaran').val(result.AspekPemasaran);
-                        $('#aspekKeuangan').val(result.AspekKeuangan);
-                        $('#aspekAgunan').val(result.AspekAgunan);
+                        $('#apprDate').val(result.ApprDate);
+                        $('#apprValueBank').val(result.ApprValueBank);
+                        $('#apprValuePasar').val(result.ApprValuePasar);
+                        $('#apprValueLikuidasi').val(result.ApprValueLikuidasi);
+                        $('#apprMrCode').val(result.ApprMarketabilityCode);
+                        $('#apprIksCode').val(result.ApprIkatSempurnaCode);
+                        $('#apprKuCode').val(result.ApprKuasaCode);
+                        $('#apprPmCode').val(result.ApprMasalahCode);
                     },
                     error: function error(xhr, status, error) {
                         $('#diverror').show();
@@ -222,19 +264,19 @@
                 var data = JSON.stringify({
                     ApRegno: $('#apRegno').val(),
                     CuRef: $('#cuRef').val(),
-                    TanggalInvestigasi: $('#tanggalInvestigasi').val(),
-                    NamaPemberiKeterangan: $('#namaPemberiKeterangan').val(),
-                    AlamatKantor: $('#alamatKantor').val(),
-                    AlamatPabrik: $('#alamatPabrik').val(),
-                    AspekManagement: $('#aspekManagement').val(),
-                    AspekProduksi: $('#aspekProduksi').val(),
-                    AspekPemasaran: $('#aspekPemasaran').val(),
-                    AspekKeuangan: $('#aspekKeuangan').val(),
-                    AspekAgunan: $('#aspekAgunan').val()
+                    ClSeq: $('#clSeq').val(),
+                    ApprDate: $('#apprDate').val(),
+                    ApprValueBank: $('#apprValueBank').val(),
+                    ApprValuePasar: $('#apprValuePasar').val(),
+                    ApprValueLikuidasi: $('#apprValueLikuidasi').val(),
+                    ApprMarketabilityCode: $('#apprMrCode').val(),
+                    ApprIkatSempurnaCode: $('#apprIksCode').val(),
+                    ApprKuasaCode: $('#apprKuCode').val(),
+                    ApprMasalahCode: $('#apprPmCode').val()
                 });
 
                 $.ajax({
-                    url: '../api/sitevisitusaha/' + $('#apRegno').val(),
+                    url: '../api/appraisal/' + $('#apRegno').val() + '/' + $('#cuRef').val() + '/' + $('#clSeq').val(),
                     type: 'PUT',
                     headers: {
                         "Authorization": "Bearer " + $('#token').val()
@@ -264,19 +306,19 @@
                 var data = JSON.stringify({
                     ApRegno: $('#apRegno').val(),
                     CuRef: $('#cuRef').val(),
-                    TanggalInvestigasi: $('#tanggalInvestigasi').val(),
-                    NamaPemberiKeterangan: $('#namaPemberiKeterangan').val(),
-                    AlamatKantor: $('#alamatKantor').val(),
-                    AlamatPabrik: $('#alamatPabrik').val(),
-                    AspekManagement: $('#aspekManagement').val(),
-                    AspekProduksi: $('#aspekProduksi').val(),
-                    AspekPemasaran: $('#aspekPemasaran').val(),
-                    AspekKeuangan: $('#aspekKeuangan').val(),
-                    AspekAgunan: $('#aspekAgunan').val()
+                    ClSeq: $('#clSeq').val(),
+                    ApprDate: $('#apprDate').val(),
+                    ApprValueBank: $('#apprValueBank').val(),
+                    ApprValuePasar: $('#apprValuePasar').val(),
+                    ApprValueLikuidasi: $('#apprValueLikuidasi').val(),
+                    ApprMarketabilityCode: $('#apprMrCode').val(),
+                    ApprIkatSempurnaCode: $('#apprIksCode').val(),
+                    ApprKuasaCode: $('#apprKuCode').val(),
+                    ApprMasalahCode: $('#apprPmCode').val()
                 });
 
                 $.ajax({
-                    url: '../api/sitevisitusaha',
+                    url: '../api/appraisal',
                     type: 'POST',
                     headers: {
                         "Authorization": "Bearer " + $('#token').val()
@@ -303,11 +345,11 @@
 
             // UPLOAD / ID
             $('#upload').click(function () {
-                if ($('#apRegno').val() == null) {
-                    alert('ApRegno harus dipilih!');
+                if (($('#apRegno').val() == '') || ($('#cuRef').val() == '') || ($('#clSeq').val() == '')) {
+                    alert('ApRegno, CuRef, ClSeq harus diisi!');
                     return;
                 }
-                window.location.replace('../test/SiteVisitUpload.html?apregno=' + $('#apRegno').val());
+                window.location.replace('../test/AppraisalUpload.html?apregno=' + $('#apRegno').val() + '&curef=' + $('#cuRef').val() + '&clseq=' + $('#clSeq').val());
             });
 
         });

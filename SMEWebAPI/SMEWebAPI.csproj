@@ -216,6 +216,8 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AppraisalController.cs" />
+    <Compile Include="Controllers\AppraisalUploadController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NasabahController.cs" />
     <Compile Include="Controllers\NasabahUploadController.cs" />
@@ -234,6 +236,7 @@
     <Compile Include="LOSSME.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AppraisalModels.cs" />
     <Compile Include="Models\AspNetUserModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LosApplicationModels.cs" />
@@ -293,6 +296,8 @@
     <Content Include="Test\AccountLogin.html" />
     <Content Include="Test\AccountRegister.html" />
     <Content Include="Test\AccountGetRoles.html" />
+    <Content Include="Test\Appraisal.html" />
+    <Content Include="Test\AppraisalUpload.html" />
     <Content Include="Test\css\bootstrap.min.css" />
     <Content Include="Test\Index.html" />
     <Content Include="Test\js\bootstrap.min.js" />
