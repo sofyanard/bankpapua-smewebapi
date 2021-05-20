@@ -345,4 +345,74 @@
         [Column("ACTIVE")]
         public string Active { get; set; }
     }
+
+    [Table("RF_APPR_JENISBANGUNAN")]
+    public class RfApprJenisBangunan
+    {
+        [Key]
+        [Column("BANGUNANID")]
+        public string BangunanId { get; set; }
+
+        [Column("BANGUNANDESC")]
+        public string BangunanDesc { get; set; }
+
+        [Column("ACTIVE")]
+        public string Active { get; set; }
+    }
+
+    [Table("RF_APPR_LOKASIBANGUNAN")]
+    public class RfApprLokasiBangunan
+    {
+        [Key]
+        [Column("LOKASIID")]
+        public string LokasiId { get; set; }
+
+        [Column("LOKASIDESC")]
+        public string LokasiDesc { get; set; }
+
+        [Column("ACTIVE")]
+        public string Active { get; set; }
+    }
+
+    [Table("RF_APPR_PENGGUNAANBANGUNAN")]
+    public class RfApprPenggunaanBangunan
+    {
+        [Key]
+        [Column("GUNAID")]
+        public string GunaId { get; set; }
+
+        [Column("GUNADESC")]
+        public string GunaDesc { get; set; }
+
+        [Column("ACTIVE")]
+        public string Active { get; set; }
+    }
+
+    [Table("RF_APPR_KELENGKAPAN")]
+    public class RfApprKelengkapan
+    {
+        [Key]
+        [Column("LENGKAPID")]
+        public string LengkapId { get; set; }
+
+        [Column("LENGKAPDESC")]
+        public string LengkapDesc { get; set; }
+
+        [Column("ACTIVE")]
+        public string Active { get; set; }
+    }
+
+    [Table("RF_APPR_JALAN")]
+    public class RfApprJalan
+    {
+        [Key]
+        [Column("JALANID")]
+        public string JalanId { get; set; }
+
+        [Column("JALANDESC")]
+        public string JalanDesc { get; set; }
+
+        [Column("ACTIVE")]
+        public string Active { get; set; }
+    }
 }

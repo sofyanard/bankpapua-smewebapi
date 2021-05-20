@@ -53,6 +53,11 @@ namespace SMEWebAPI
         public virtual DbSet<RfApprKuasa> RfApprKuasas { get; set; }
         public virtual DbSet<RfApprMasalah> RfApprMasalahs { get; set; }
         public virtual DbSet<AppraisalNewFileUpload> AppraisalNewFileUploads { get; set; }
+        public virtual DbSet<RfApprJenisBangunan> RfApprJenisBangunans { get; set; }
+        public virtual DbSet<RfApprLokasiBangunan> RfApprLokasiBangunans { get; set; }
+        public virtual DbSet<RfApprPenggunaanBangunan> RfApprPenggunaanBangunans { get; set; }
+        public virtual DbSet<RfApprKelengkapan> RfApprKelengkapans { get; set; }
+        public virtual DbSet<RfApprJalan> RfApprJalans { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

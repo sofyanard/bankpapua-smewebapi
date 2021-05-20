@@ -207,5 +207,35 @@ namespace SMEWebAPI.Controllers
         {
             return Ok(db.RfApprMasalahs);
         }
+
+        [Route("ApprJenisBangunan")]
+        public IHttpActionResult GetApprJenisBangunan()
+        {
+            return Ok(db.RfApprJenisBangunans);
+        }
+
+        [Route("ApprLokasiBangunan")]
+        public IHttpActionResult GetApprLokasiBangunan()
+        {
+            return Ok(db.RfApprLokasiBangunans);
+        }
+
+        [Route("ApprPenggunaanBangunan")]
+        public IHttpActionResult GetApprPenggunaanBangunan()
+        {
+            return Ok(db.RfApprPenggunaanBangunans);
+        }
+
+        [Route("ApprKelengkapan")]
+        public IHttpActionResult GetApprKelengkapan()
+        {
+            return Ok(db.RfApprKelengkapans);
+        }
+
+        [Route("ApprJalan")]
+        public IHttpActionResult GetApprJalan()
+        {
+            return Ok(db.RfApprJalans);
+        }
     }
 }

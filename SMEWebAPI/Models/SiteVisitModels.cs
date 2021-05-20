@@ -573,4 +573,62 @@ namespace SMEWebAPI.Models
         // public string Persoalan { get; set; }
         // public DateTime? TanggalTarget { get; set; }
     }
+
+    public class SiteVisitRumahInput
+    {
+        [Required]
+        public string ApRegno { get; set; }
+
+        // [Required]
+        public string CuRef { get; set; }
+
+        [Required]
+        public DateTime? TanggalInvestigasi { get; set; }
+
+        public string NamaPemberiKeterangan1 { get; set; }
+
+        public string HubunganPemberiKeterangan1 { get; set; }
+
+        public string NamaPemberiKeterangan2 { get; set; }
+
+        public string HubunganPemberiKeterangan2 { get; set; }
+
+        public string StatusRumah { get; set; }
+
+        public string CekBerdasarkanX { get; set; }
+
+        public string RumahSebagaiAgunanX { get; set; }
+
+        public string LamaMenetapTahun { get; set; }
+
+        public string LamaMenetapBulan { get; set; }
+
+        public string JenisBangunan { get; set; }
+
+        public string LokasiBangunan { get; set; }
+
+        public string KondisiBangunan { get; set; }
+
+        public string FasilitasRumah { get; set; }
+
+        public string IsiRumahX { get; set; }
+
+        public string AksesJalan { get; set; }
+
+        public string KondisiLingkungan { get; set; }
+
+        public string LuasTanah { get; set; }
+
+        public string LuasBangunan { get; set; }
+
+        public string Garasi { get; set; }
+
+        public string Carport { get; set; }
+
+        public string Kendaraan { get; set; }
+
+        public string AlamatSesuaiKTPX { get; set; }
+
+        public string TeleponDapatDihubungiX { get; set; }
+    }
 }

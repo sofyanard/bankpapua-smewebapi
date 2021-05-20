@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using DMS.CuBESCore;
 using DMS.DBConnection;
 using SMEWebAPI.Models;
+using System.Web.Http.Description;
 
 namespace SMEWebAPI.Controllers
 {
@@ -17,13 +18,14 @@ namespace SMEWebAPI.Controllers
     public class SiteVisitRumahController : ApiController
     {
         private Connection conn;
+        private LOSSME db = new LOSSME();
 
         public SiteVisitRumahController()
         {
             conn = new Connection(ConfigurationManager.AppSettings["ConnSME"]);
         }
 
-        // GET: SiteVisitUsaha
+        // GET: SiteVisitRumah
         public IHttpActionResult Get()
         {
             try
@@ -88,6 +90,170 @@ namespace SMEWebAPI.Controllers
                 }
 
                 return Ok(listSiteVisitPipeLine);
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+
+        // GET: api/SiteVisitRumah/5
+        [Route("{apRegno}")]
+        [ResponseType(typeof(SiteVisitRumahInput))]
+        public IHttpActionResult GetOne(string apRegno)
+        {
+            try
+            {
+                CustSiteVisit custSiteVisit = db.CustSiteVisits.Find(apRegno);
+
+                if (custSiteVisit == null)
+                {
+                    return NotFound();
+                }
+
+                SiteVisitRumahInput siteVisitRumahInput = new SiteVisitRumahInput();
+                siteVisitRumahInput.ApRegno = custSiteVisit.ApRegno;
+                siteVisitRumahInput.CuRef = custSiteVisit.CuRef;
+                siteVisitRumahInput.TanggalInvestigasi = custSiteVisit.SvHsInvestigasiDate;
+                siteVisitRumahInput.NamaPemberiKeterangan1 = custSiteVisit.SvHsPemberiKet1;
+                siteVisitRumahInput.HubunganPemberiKeterangan1 = custSiteVisit.SvHsHubPemberiKet1;
+                siteVisitRumahInput.NamaPemberiKeterangan2 = custSiteVisit.SvHsPemberiKet2;
+                siteVisitRumahInput.HubunganPemberiKeterangan2 = custSiteVisit.SvHsHubPemberiKet2;
+                siteVisitRumahInput.StatusRumah = custSiteVisit.SvHsStatusHomeStay;
+                siteVisitRumahInput.CekBerdasarkanX = custSiteVisit.SvHsCekArsipStay;
+                siteVisitRumahInput.RumahSebagaiAgunanX = custSiteVisit.SvHsAgunanStay;
+                siteVisitRumahInput.LamaMenetapTahun = custSiteVisit.SvHsDayStay;
+                siteVisitRumahInput.LamaMenetapBulan = custSiteVisit.SvHsMonthStay;
+                siteVisitRumahInput.JenisBangunan = custSiteVisit.SvHsBangunanTypeStay;
+                siteVisitRumahInput.LokasiBangunan = custSiteVisit.SvHsBangunanLokasiStay;
+                siteVisitRumahInput.KondisiBangunan = custSiteVisit.SvHsBangunanCondStay;
+                siteVisitRumahInput.FasilitasRumah = custSiteVisit.SvHsFasilitasStay;
+                siteVisitRumahInput.IsiRumahX = custSiteVisit.SvHsBarangHomeStay;
+                siteVisitRumahInput.AksesJalan = custSiteVisit.SvHsAksesRoadStay;
+                siteVisitRumahInput.KondisiLingkungan = custSiteVisit.SvHsLingkunganStay;
+                siteVisitRumahInput.LuasTanah = custSiteVisit.SvHsLuasTanahStay;
+                siteVisitRumahInput.LuasBangunan = custSiteVisit.SvHsLuasBangunanStay;
+                siteVisitRumahInput.Garasi = custSiteVisit.SvHsGarasiStay;
+                siteVisitRumahInput.Carport = custSiteVisit.SvHsCarPortStay;
+                siteVisitRumahInput.Kendaraan = custSiteVisit.SvHsVehicleStay;
+                siteVisitRumahInput.AlamatSesuaiKTPX = null;
+                siteVisitRumahInput.TeleponDapatDihubungiX = null;
+
+                return Ok(siteVisitRumahInput);
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+
+        // PUT: api/SiteVisitRumah/5
+        [Route("{apRegno}")]
+        [ResponseType(typeof(void))]
+        public IHttpActionResult Put(string apRegno, [FromBody] SiteVisitRumahInput input)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                CustSiteVisit custSiteVisit = db.CustSiteVisits.Find(apRegno);
+
+                if (custSiteVisit == null)
+                {
+                    return BadRequest("No record found!");
+                }
+
+                custSiteVisit.SvHsInvestigasiDate = input.TanggalInvestigasi;
+                custSiteVisit.SvHsPemberiKet1 = input.NamaPemberiKeterangan1;
+                custSiteVisit.SvHsHubPemberiKet1 = input.HubunganPemberiKeterangan1;
+                custSiteVisit.SvHsPemberiKet2 = input.NamaPemberiKeterangan2;
+                custSiteVisit.SvHsHubPemberiKet2 = input.HubunganPemberiKeterangan2;
+                custSiteVisit.SvHsStatusHomeStay = input.StatusRumah;
+                // custSiteVisit.SvHsCekArsipStay = input.CekBerdasarkanX;
+                // custSiteVisit.SvHsAgunanStay = input.RumahSebagaiAgunanX;
+                custSiteVisit.SvHsDayStay = input.LamaMenetapTahun;
+                custSiteVisit.SvHsMonthStay = input.LamaMenetapBulan;
+                custSiteVisit.SvHsBangunanTypeStay = input.JenisBangunan;
+                custSiteVisit.SvHsBangunanLokasiStay = input.LokasiBangunan;
+                custSiteVisit.SvHsBangunanCondStay = input.KondisiBangunan;
+                custSiteVisit.SvHsFasilitasStay = input.FasilitasRumah;
+                // custSiteVisit.SvHsBarangHomeStay = input.IsiRumahX;
+                custSiteVisit.SvHsAksesRoadStay = input.AksesJalan;
+                custSiteVisit.SvHsLingkunganStay = input.KondisiLingkungan;
+                custSiteVisit.SvHsLuasTanahStay = input.LuasTanah;
+                custSiteVisit.SvHsLuasBangunanStay = input.LuasBangunan;
+                custSiteVisit.SvHsGarasiStay = input.Garasi;
+                custSiteVisit.SvHsCarPortStay = input.Carport;
+                custSiteVisit.SvHsVehicleStay = input.Kendaraan;
+                // AlamatSesuaiKTPX
+                // TeleponDapatDihubungiX
+
+                db.SaveChanges();
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+
+        // POST: api/SiteVisitRumah
+        [ResponseType(typeof(void))]
+        public IHttpActionResult Post(SiteVisitRumahInput input)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                Application application = db.Applications.Find(input.ApRegno);
+
+                if (application == null)
+                {
+                    return BadRequest("No application found!");
+                }
+
+                string cuRef = application.CuRef;
+
+                CustSiteVisit custSiteVisit = new CustSiteVisit();
+
+                custSiteVisit.ApRegno = input.ApRegno;
+                custSiteVisit.CuRef = cuRef;
+                custSiteVisit.SvHsInvestigasiDate = input.TanggalInvestigasi;
+                custSiteVisit.SvHsPemberiKet1 = input.NamaPemberiKeterangan1;
+                custSiteVisit.SvHsHubPemberiKet1 = input.HubunganPemberiKeterangan1;
+                custSiteVisit.SvHsPemberiKet2 = input.NamaPemberiKeterangan2;
+                custSiteVisit.SvHsHubPemberiKet2 = input.HubunganPemberiKeterangan2;
+                custSiteVisit.SvHsStatusHomeStay = input.StatusRumah;
+                // custSiteVisit.SvHsCekArsipStay = input.CekBerdasarkanX;
+                // custSiteVisit.SvHsAgunanStay = input.RumahSebagaiAgunanX;
+                custSiteVisit.SvHsDayStay = input.LamaMenetapTahun;
+                custSiteVisit.SvHsMonthStay = input.LamaMenetapBulan;
+                custSiteVisit.SvHsBangunanTypeStay = input.JenisBangunan;
+                custSiteVisit.SvHsBangunanLokasiStay = input.LokasiBangunan;
+                custSiteVisit.SvHsBangunanCondStay = input.KondisiBangunan;
+                custSiteVisit.SvHsFasilitasStay = input.FasilitasRumah;
+                // custSiteVisit.SvHsBarangHomeStay = input.IsiRumahX;
+                custSiteVisit.SvHsAksesRoadStay = input.AksesJalan;
+                custSiteVisit.SvHsLingkunganStay = input.KondisiLingkungan;
+                custSiteVisit.SvHsLuasTanahStay = input.LuasTanah;
+                custSiteVisit.SvHsLuasBangunanStay = input.LuasBangunan;
+                custSiteVisit.SvHsGarasiStay = input.Garasi;
+                custSiteVisit.SvHsCarPortStay = input.Carport;
+                custSiteVisit.SvHsVehicleStay = input.Kendaraan;
+                // AlamatSesuaiKTPX
+                // TeleponDapatDihubungiX
+
+                db.CustSiteVisits.Add(custSiteVisit);
+                db.SaveChanges();
+
+                return Ok();
             }
             catch (Exception e)
             {
