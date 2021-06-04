@@ -415,4 +415,55 @@
         [Column("ACTIVE")]
         public string Active { get; set; }
     }
+
+    [Table("RFCURRENCY")]
+    public class RfCurrency
+    {
+        [Key]
+        [Column("CURRENCYID")]
+        public string CurrencyId { get; set; }
+
+        [Column("CURRENCYDESC")]
+        public string CurrencyDesc { get; set; }
+
+        [Column("CURRENCYRATE")]
+        public double? CurrencyRate { get; set; }
+
+        [Column("ACTIVE")]
+        public string Active { get; set; }
+    }
+
+    [Table("RFGROUPINSURANCETYPE")]
+    public class RfGroupInsuranceType
+    {
+        [Key]
+        [Column("GRIT_ID")]
+        public string GroupInsuranceTypeId { get; set; }
+
+        [Column("GRIT_DESC")]
+        public string GroupInsuranceTypeDesc { get; set; }
+
+        [Column("ACTIVE")]
+        public string Active { get; set; }
+    }
+
+    [Table("RFINSURANCETYPE")]
+    public class RfInsuranceType
+    {
+        [Key]
+        [Column("IT_ID")]
+        public string InsuranceTypeId { get; set; }
+
+        [Column("IT_DESC")]
+        public string InsuranceTypeDesc { get; set; }
+
+        [Column("GRIT_ID")]
+        public string GroupInsuranceTypeId { get; set; }
+
+        [ForeignKey("GroupInsuranceTypeId")]
+        public virtual RfGroupInsuranceType RfGroupInsuranceType { get; set; }
+
+        [Column("ACTIVE")]
+        public string Active { get; set; }
+    }
 }

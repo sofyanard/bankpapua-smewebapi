@@ -1,0 +1,591 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-select.min.css">
+
+    <title>Hello, world!</title>
+</head>
+<body>
+    <div class="container">
+        <p>
+            <a href="Index.html">Index</a>
+        </p>
+
+        <h1>Asuransi</h1>
+
+        <br />
+
+        <form>
+            <div class="form-group">
+                <label for="token">Token</label>
+                <input type="text" class="form-control" id="token" name="token">
+            </div>
+
+            <div class="form-group">
+                <label for="insuranceCompanyId">Insurance Company Id</label>
+                <input type="text" class="form-control" id="insuranceCompanyId" name="insuranceCompanyId" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="apRegno"><b>ApRegno (Application No)*</b></label>
+                <input type="text" class="form-control" id="apRegno" name="apRegno">
+            </div>
+
+            <div class="form-group">
+                <label for="cuRef"><b>CuRef (Customer Ref No)*</b></label>
+                <input type="text" class="form-control" id="cuRef" name="cuRef">
+            </div>
+
+            <div class="form-group">
+                <label for="appType"><b>AppType (Application Type Code)*</b></label>
+                <input type="text" class="form-control" id="appType" name="appType">
+            </div>
+
+            <div class="form-group">
+                <label for="productId"><b>ProductId (Product Code)*</b></label>
+                <input type="text" class="form-control" id="productId" name="productId">
+            </div>
+
+            <div class="form-group">
+                <label for="productSeq"><b>ProductSeq (Facility Sequence)*</b></label>
+                <input type="text" class="form-control" id="productSeq" name="productSeq">
+            </div>
+
+            <div class="form-group">
+                <label for="collateralSeq"><b>CollateralSeq (Collateral Sequence)*</b></label>
+                <input type="text" class="form-control" id="collateralSeq" name="collateralSeq">
+            </div>
+
+            <div class="form-group">
+                <label for="seq"><b>Seq (Assignment Sequence)*</b></label>
+                <input type="text" class="form-control" id="seq" name="seq">
+            </div>
+
+            <hr />
+
+            <div class="form-group">
+                <label for="insuranceTypeId">Insurance Type</label>
+                <select class="form-control" id="insuranceTypeId" name="insuranceTypeId"></select>
+            </div>
+
+            <div class="form-group">
+                <label for="insuranceAmount">Insurance Amount</label>
+                <input type="number" class="form-control" id="insuranceAmount" name="insuranceAmount">
+            </div>
+
+            <div class="form-group">
+                <label for="currencyId">Currency</label>
+                <select class="form-control" id="currencyId" name="currencyId"></select>
+            </div>
+
+            <div class="form-group">
+                <label for="percentage">Percentage</label>
+                <input type="number" class="form-control" id="percentage" name="percentage">
+            </div>
+
+            <div class="form-group">
+                <label for="premi">Premi</label>
+                <input type="number" class="form-control" id="premi" name="premi">
+            </div>
+
+            <div class="form-group">
+                <label for="dateStart">Date Start</label>
+                <input type="date" class="form-control" id="dateStart" name="dateStart">
+            </div>
+
+            <div class="form-group">
+                <label for="dateEnd">Date End</label>
+                <input type="date" class="form-control" id="dateEnd" name="dateEnd">
+            </div>
+
+            <div class="form-group">
+                <label for="policyNo">Polis No</label>
+                <input type="text" class="form-control" id="policyNo" name="policyNo">
+            </div>
+
+            <br />
+
+            <h5>Asuransi Jiwa (* ApRegno, Seq)</h5>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary" id="jiwagetall" name="getid">GET ALL</button>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary" id="jiwaget" name="get">GET / ID</button>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary" id="jiwaput" name="put">PUT / ID</button>
+                </div>
+                <div class="col-md-3">
+                    <!--<button type="button" class="btn btn-primary" id="jiwapost" name="post">POST</button>-->
+                </div>
+            </div>
+
+            <hr />
+
+            <br />
+
+            <h5>Asuransi Kredit (* ApRegno, CuRef, AppType, ProductId, ProductSeq, Seq)</h5>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary" id="kredgetall" name="getid">GET ALL</button>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary" id="kredget" name="get">GET / ID</button>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary" id="kredput" name="put">PUT / ID</button>
+                </div>
+                <div class="col-md-3">
+                    <!--<button type="button" class="btn btn-primary" id="kredpost" name="post">POST</button>-->
+                </div>
+            </div>
+
+            <hr />
+
+            <br />
+
+            <h5>Asuransi Agunan (* ApRegno, CuRef, ProductId, CollateralSeq, Seq)</h5>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary" id="agungetall" name="getid">GET ALL</button>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary" id="agunget" name="get">GET / ID</button>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary" id="agunput" name="put">PUT / ID</button>
+                </div>
+                <div class="col-md-3">
+                    <!--<button type="button" class="btn btn-primary" id="agunpost" name="post">POST</button>-->
+                </div>
+            </div>
+
+            <hr />
+
+            <br />
+
+            <div class="row">
+                <div class="col-md-3">
+
+                </div>
+                <div class="col-md-3">
+
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-secondary" id="upload" name="upload">UPLOAD / ID</button>
+                </div>
+                <div class="col-md-3">
+
+                </div>
+            </div>
+
+        </form>
+
+        <br />
+
+        <div class="alert alert-success alert-dismissible" role="alert" id="divsuccess">
+            <span id="msgsuccess"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="alert alert-danger alert-dismissible" role="alert" id="diverror">
+            <span id="msgerror"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="alert alert-info alert-dismissible" role="alert" id="divcomplete">
+            <span id="msgcomplete"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-select.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#divsuccess').hide();
+            $('#diverror').hide();
+            $('#divcomplete').hide();
+
+            // Insurance Type
+            $.ajax({
+                url: '../api/parameter/insurancetype',
+                contentType: 'application/json',
+                success: function (result) {
+                    $.each(result, function () {
+                        $('#insuranceTypeId').append($("<option />").val(this.InsuranceTypeId).text(this.InsuranceTypeDesc));
+                    });
+                }
+            });
+
+            // Currency
+            $.ajax({
+                url: '../api/parameter/currency',
+                contentType: 'application/json',
+                success: function (result) {
+                    $.each(result, function () {
+                        $('#currencyId').append($("<option />").val(this.CurrencyId).text(this.CurrencyId));
+                    });
+                }
+            });
+
+            // JIWA GET ALL
+            $('#jiwagetall').click(function () {
+                $.ajax({
+                    url: '../api/asuransi/jiwa',
+                    type: 'GET',
+                    headers: {
+                        "Authorization": "Bearer " + $('#token').val()
+                    },
+                    contentType: 'application/json',
+                    success: function (result) {
+                        $('#divsuccess').show();
+                        $('#msgsuccess').html(JSON.stringify(result));
+
+
+                    },
+                    error: function error(xhr, status, error) {
+                        $('#diverror').show();
+                        $('#msgerror').html(xhr.responseText);
+                    },
+                    complete: function (xhr, status) {
+                        $('#divcomplete').show();
+                        $('#msgcomplete').html(xhr.status);
+                    }
+                });
+            });
+
+            // KREDIT GET ALL
+            $('#kredgetall').click(function () {
+                $.ajax({
+                    url: '../api/asuransi/kredit',
+                    type: 'GET',
+                    headers: {
+                        "Authorization": "Bearer " + $('#token').val()
+                    },
+                    contentType: 'application/json',
+                    success: function (result) {
+                        $('#divsuccess').show();
+                        $('#msgsuccess').html(JSON.stringify(result));
+
+
+                    },
+                    error: function error(xhr, status, error) {
+                        $('#diverror').show();
+                        $('#msgerror').html(xhr.responseText);
+                    },
+                    complete: function (xhr, status) {
+                        $('#divcomplete').show();
+                        $('#msgcomplete').html(xhr.status);
+                    }
+                });
+            });
+
+            // AGUNAN GET ALL
+            $('#agungetall').click(function () {
+                $.ajax({
+                    url: '../api/asuransi/agunan',
+                    type: 'GET',
+                    headers: {
+                        "Authorization": "Bearer " + $('#token').val()
+                    },
+                    contentType: 'application/json',
+                    success: function (result) {
+                        $('#divsuccess').show();
+                        $('#msgsuccess').html(JSON.stringify(result));
+
+
+                    },
+                    error: function error(xhr, status, error) {
+                        $('#diverror').show();
+                        $('#msgerror').html(xhr.responseText);
+                    },
+                    complete: function (xhr, status) {
+                        $('#divcomplete').show();
+                        $('#msgcomplete').html(xhr.status);
+                    }
+                });
+            });
+
+            // JIWA GET / ID
+            $('#jiwaget').click(function () {
+                $.ajax({
+                    url: '../api/asuransi/jiwa/' + $('#apRegno').val() + '/' + $('#seq').val(),
+                    type: 'GET',
+                    headers: {
+                        "Authorization": "Bearer " + $('#token').val()
+                    },
+                    contentType: 'application/json',
+                    success: function (result) {
+                        $('#divsuccess').show();
+                        $('#msgsuccess').html(JSON.stringify(result));
+
+                        // $('#apRegno').val(result.ApRegno);
+                        // $('#seq').val(result.Seq);
+                        $('#insuranceCompanyId').val(result.InsuranceCompanyId);
+                        // $('#insuranceTypeId').val(result.InsuranceTypeId);
+                        $('#insuranceAmount').val(result.InsuranceAmount);
+                        // $('#currencyId').val(result.CurrencyId);
+                        $('#percentage').val(result.Percentage);
+                        $('#premi').val(result.Premi);
+                        // $('#dateStart').val(result.DateStart);
+                        // $('#dateEnd').val(result.DateEnd);
+                        $('#policyNo').val(result.PolicyNo);
+                    },
+                    error: function error(xhr, status, error) {
+                        $('#diverror').show();
+                        $('#msgerror').html(xhr.responseText);
+                    },
+                    complete: function (xhr, status) {
+                        $('#divcomplete').show();
+                        $('#msgcomplete').html(xhr.status);
+                    }
+                });
+            });
+
+            // KREDIT GET / ID
+            $('#kredget').click(function () {
+                $.ajax({
+                    url: '../api/asuransi/kredit/' + $('#apRegno').val() + '/' + $('#appType').val() + '/' + $('#productId').val() + '/' + $('#productSeq').val() + '/' + $('#seq').val(),
+                    type: 'GET',
+                    headers: {
+                        "Authorization": "Bearer " + $('#token').val()
+                    },
+                    contentType: 'application/json',
+                    success: function (result) {
+                        $('#divsuccess').show();
+                        $('#msgsuccess').html(JSON.stringify(result));
+
+                        // $('#apRegno').val(result.ApRegno);
+                        $('#cuRef').val(result.CuRef);
+                        // $('#appType').val(result.AppType);
+                        // $('#productId').val(result.ProductId);
+                        // $('#productSeq').val(result.ProductSeq);
+                        // $('#seq').val(result.Seq);
+                        $('#insuranceCompanyId').val(result.InsuranceCompanyId);
+                        // $('#insuranceTypeId').val(result.InsuranceTypeId);
+                        $('#insuranceAmount').val(result.InsuranceAmount);
+                        // $('#currencyId').val(result.CurrencyId);
+                        $('#percentage').val(result.Percentage);
+                        $('#premi').val(result.Premi);
+                        // $('#dateStart').val(result.DateStart);
+                        // $('#dateEnd').val(result.DateEnd);
+                        $('#policyNo').val(result.PolicyNo);
+                    },
+                    error: function error(xhr, status, error) {
+                        $('#diverror').show();
+                        $('#msgerror').html(xhr.responseText);
+                    },
+                    complete: function (xhr, status) {
+                        $('#divcomplete').show();
+                        $('#msgcomplete').html(xhr.status);
+                    }
+                });
+            });
+
+            // AGUNAN GET / ID
+            $('#agunget').click(function () {
+                $.ajax({
+                    url: '../api/asuransi/agunan/' + $('#apRegno').val() + '/' + $('#productId').val() + '/' + $('#collateralSeq').val() + '/' + $('#seq').val(),
+                    type: 'GET',
+                    headers: {
+                        "Authorization": "Bearer " + $('#token').val()
+                    },
+                    contentType: 'application/json',
+                    success: function (result) {
+                        $('#divsuccess').show();
+                        $('#msgsuccess').html(JSON.stringify(result));
+
+                        // $('#apRegno').val(result.ApRegno);
+                        $('#cuRef').val(result.CuRef);
+                        // $('#productId').val(result.ProductId);
+                        // $('#collateralSeq').val(result.CollateralSeq);
+                        // $('#seq').val(result.Seq);
+                        $('#insuranceCompanyId').val(result.InsuranceCompanyId);
+                        // $('#insuranceTypeId').val(result.InsuranceTypeId);
+                        $('#insuranceAmount').val(result.InsuranceAmount);
+                        // $('#currencyId').val(result.CurrencyId);
+                        $('#percentage').val(result.Percentage);
+                        $('#premi').val(result.Premi);
+                        // $('#dateStart').val(result.DateStart);
+                        // $('#dateEnd').val(result.DateEnd);
+                        $('#policyNo').val(result.PolicyNo);
+                    },
+                    error: function error(xhr, status, error) {
+                        $('#diverror').show();
+                        $('#msgerror').html(xhr.responseText);
+                    },
+                    complete: function (xhr, status) {
+                        $('#divcomplete').show();
+                        $('#msgcomplete').html(xhr.status);
+                    }
+                });
+            });
+
+            // JIWA PUT / ID
+            $('#jiwaput').click(function () {
+
+                var data = JSON.stringify({
+                    ApRegno: $('#apRegno').val(),
+                    Seq: $('#seq').val(),
+                    InsuranceCompanyId: $('#insuranceCompanyId').val(),
+                    InsuranceTypeId: $('#insuranceTypeId').val(),
+                    InsuranceAmount: $('#insuranceAmount').val(),
+                    CurrencyId: $('#currencyId').val(),
+                    Percentage: $('#percentage').val(),
+                    Premi: $('#premi').val(),
+                    DateStart: $('#dateStart').val(),
+                    DateEnd: $('#dateEnd').val(),
+                    PolicyNo: $('#policyNo').val()
+                });
+
+                $.ajax({
+                    url: '../api/asuransi/jiwa/' + $('#apRegno').val() + '/' + $('#seq').val(),
+                    type: 'PUT',
+                    headers: {
+                        "Authorization": "Bearer " + $('#token').val()
+                    },
+                    contentType: 'application/json',
+                    data: data,
+                    success: function (result) {
+                        $('#divsuccess').show();
+                        $('#msgsuccess').html(JSON.stringify(result));
+
+
+                    },
+                    error: function error(xhr, status, error) {
+                        $('#diverror').show();
+                        $('#msgerror').html(xhr.responseText);
+                    },
+                    complete: function (xhr, status) {
+                        $('#divcomplete').show();
+                        $('#msgcomplete').html(xhr.status);
+                    }
+                });
+            });
+
+            // KREDIT PUT / ID
+            $('#kredput').click(function () {
+
+                var data = JSON.stringify({
+                    ApRegno: $('#apRegno').val(),
+                    CuRef: $('#cuRef').val(),
+                    AppType: $('#appType').val(),
+                    ProductId: $('#productId').val(),
+                    ProductSeq: $('#productSeq').val(),
+                    Seq: $('#seq').val(),
+                    InsuranceCompanyId: $('#insuranceCompanyId').val(),
+                    InsuranceTypeId: $('#insuranceTypeId').val(),
+                    InsuranceAmount: $('#insuranceAmount').val(),
+                    CurrencyId: $('#currencyId').val(),
+                    Percentage: $('#percentage').val(),
+                    Premi: $('#premi').val(),
+                    DateStart: $('#dateStart').val(),
+                    DateEnd: $('#dateEnd').val(),
+                    PolicyNo: $('#policyNo').val()
+                });
+
+                $.ajax({
+                    url: '../api/asuransi/kredit/' + $('#apRegno').val() + '/' + $('#appType').val() + '/' + $('#productId').val() + '/' + $('#productSeq').val() + '/' + $('#seq').val(),
+                    type: 'PUT',
+                    headers: {
+                        "Authorization": "Bearer " + $('#token').val()
+                    },
+                    contentType: 'application/json',
+                    data: data,
+                    success: function (result) {
+                        $('#divsuccess').show();
+                        $('#msgsuccess').html(JSON.stringify(result));
+
+
+                    },
+                    error: function error(xhr, status, error) {
+                        $('#diverror').show();
+                        $('#msgerror').html(xhr.responseText);
+                    },
+                    complete: function (xhr, status) {
+                        $('#divcomplete').show();
+                        $('#msgcomplete').html(xhr.status);
+                    }
+                });
+            });
+
+            // AGUNAN PUT / ID
+            $('#agunput').click(function () {
+
+                var data = JSON.stringify({
+                    ApRegno: $('#apRegno').val(),
+                    CuRef: $('#cuRef').val(),
+                    ProductId: $('#productId').val(),
+                    CollateralSeq: $('#collateralSeq').val(),
+                    Seq: $('#seq').val(),
+                    InsuranceCompanyId: $('#insuranceCompanyId').val(),
+                    InsuranceTypeId: $('#insuranceTypeId').val(),
+                    InsuranceAmount: $('#insuranceAmount').val(),
+                    CurrencyId: $('#currencyId').val(),
+                    Percentage: $('#percentage').val(),
+                    Premi: $('#premi').val(),
+                    DateStart: $('#dateStart').val(),
+                    DateEnd: $('#dateEnd').val(),
+                    PolicyNo: $('#policyNo').val()
+                });
+
+                $.ajax({
+                    url: '../api/asuransi/agunan/' + $('#apRegno').val() + '/' + $('#productId').val() + '/' + $('#collateralSeq').val() + '/' + $('#seq').val(),
+                    type: 'PUT',
+                    headers: {
+                        "Authorization": "Bearer " + $('#token').val()
+                    },
+                    contentType: 'application/json',
+                    data: data,
+                    success: function (result) {
+                        $('#divsuccess').show();
+                        $('#msgsuccess').html(JSON.stringify(result));
+
+
+                    },
+                    error: function error(xhr, status, error) {
+                        $('#diverror').show();
+                        $('#msgerror').html(xhr.responseText);
+                    },
+                    complete: function (xhr, status) {
+                        $('#divcomplete').show();
+                        $('#msgcomplete').html(xhr.status);
+                    }
+                });
+            });
+
+            // UPLOAD / ID
+            $('#upload').click(function () {
+                if (($('#apRegno').val() == '') || ($('#cuRef').val() == '') || ($('#clSeq').val() == '')) {
+                    alert('ApRegno, CuRef, ClSeq harus diisi!');
+                    return;
+                }
+                window.location.replace('../test/AppraisalUpload.html?apregno=' + $('#apRegno').val() + '&curef=' + $('#cuRef').val() + '&clseq=' + $('#clSeq').val());
+            });
+
+        });
+    </script>
+</body>
+</html>

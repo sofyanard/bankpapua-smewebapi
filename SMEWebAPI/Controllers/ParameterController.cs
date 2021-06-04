@@ -122,7 +122,7 @@ namespace SMEWebAPI.Controllers
             return Ok(result);
         }
 
-        [Route("CertificateTypeByColType/{ColTypeSeq}")]
+        [Route("CertificateTypeByColType/{colTypeSeq}")]
         public IHttpActionResult GetCertificateTypeByColType(int colTypeSeq)
         {
             RfCollateralType rfCollateralType = db.RfCollateralTypes.Find(colTypeSeq);
@@ -236,6 +236,18 @@ namespace SMEWebAPI.Controllers
         public IHttpActionResult GetApprJalan()
         {
             return Ok(db.RfApprJalans);
+        }
+
+        [Route("Currency")]
+        public IHttpActionResult GetCurrency()
+        {
+            return Ok(db.RfCurrencies);
+        }
+
+        [Route("InsuranceType")]
+        public IHttpActionResult GetInsuranceType()
+        {
+            return Ok(db.RfInsuranceTypes);
         }
     }
 }
