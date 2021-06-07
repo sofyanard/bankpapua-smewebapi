@@ -222,6 +222,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NasabahController.cs" />
     <Compile Include="Controllers\NasabahUploadController.cs" />
+    <Compile Include="Controllers\NotarisController.cs" />
     <Compile Include="Controllers\ParameterController.cs" />
     <Compile Include="Controllers\PengajuanController.cs" />
     <Compile Include="Controllers\SimulasiController.cs" />
@@ -243,6 +244,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LosApplicationModels.cs" />
     <Compile Include="Models\LosUserModels.cs" />
+    <Compile Include="Models\NotarisModels.cs" />
     <Compile Include="Models\PengajuanModels.cs" />
     <Compile Include="Models\NasabahUploadModels.cs" />
     <Compile Include="Models\ParameterModels.cs" />
@@ -311,6 +313,7 @@
     <Content Include="Test\NasabahPengajuan.html" />
     <Content Include="Test\NasabahSaudara.html" />
     <Content Include="Test\NasabahUpload.html" />
+    <Content Include="Test\Notaris.html" />
     <Content Include="Test\Simulasi.html" />
     <Content Include="Test\SiteVisitKantor.html" />
     <Content Include="Test\SiteVisitRumah.html" />

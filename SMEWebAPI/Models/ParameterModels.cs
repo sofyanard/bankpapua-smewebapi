@@ -466,4 +466,21 @@
         [Column("ACTIVE")]
         public string Active { get; set; }
     }
+
+    [Table("RFPEKERJAAN")]
+    public class RfPekerjaan
+    {
+        [Key]
+        [Column("PEKERJAANID")]
+        public string PekerjaanId { get; set; }
+
+        [Column("PEKERJAANDESC")]
+        public string PekerjaanDesc { get; set; }
+
+        [Column("PEKERJAANSLA")]
+        public int? SlaDays { get; set; }
+
+        [Column("ACTIVE")]
+        public string Active { get; set; }
+    }
 }
