@@ -116,14 +116,26 @@ namespace SMEWebAPI.Models
         [Column("APPR_MRCODE")]
         public string ApprMrCode { get; set; }
 
+        [ForeignKey("ApprMrCode")]
+        public virtual RfApprMarketability RfApprMarketability { get; set; }
+
         [Column("APPR_IKSCODE")]
         public string ApprIksCode { get; set; }
+
+        [ForeignKey("ApprIksCode")]
+        public virtual RfApprIkatSempurna RfApprIkatSempurna { get; set; }
 
         [Column("APPR_KUCODE")]
         public string ApprKuCode { get; set; }
 
+        [ForeignKey("ApprKuCode")]
+        public virtual RfApprKuasa RfApprKuasa { get; set; }
+
         [Column("APPR_PMCODE")]
         public string ApprPmCode { get; set; }
+
+        [ForeignKey("ApprPmCode")]
+        public virtual RfApprMasalah RfApprMasalah { get; set; }
     }
 
     public class AppraisalMobile

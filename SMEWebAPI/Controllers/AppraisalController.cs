@@ -32,6 +32,8 @@ namespace SMEWebAPI.Controllers
             try
             {
                 string email = User.Identity.GetUserName();
+
+                /*
                 conn.QueryString = "SELECT USERID FROM SCUSER WHERE SU_EMAIL = '" + email + "'";
                 conn.ExecuteQuery();
 
@@ -56,6 +58,24 @@ namespace SMEWebAPI.Controllers
                     "join RFCOLLATERALTYPE e on d.CL_TYPE = e.COLTYPESEQ " +
                     "where l.LA_APPRSTATUS = '2' and a.AP_REJECT = '0' and a.AP_CANCEL = '0' " +
                     "and l.OFFICERSEQ = '" + userid + "'";
+                conn.ExecuteQuery();
+                */
+
+                conn.QueryString = "select distinct l.AP_REGNO, l.CU_REF, l.CL_SEQ, " +
+                    "case c.CU_CUSTTYPEID when '01' then isnull(c3.COMPTYPEDESC, '') +' ' + isnull(c2.CU_COMPNAME, '') " +
+                    "else isnull(c1.CU_FIRSTNAME, '') + ' ' + isnull(c1.CU_MIDDLENAME, '') + ' ' + isnull(c1.CU_LASTNAME, '') end as CU_NAME, " +
+                    "e.COLTYPEDESC, d.CL_DESC, l.LA_APPRSTATUS " +
+                    "from APPLICATION a " +
+                    "join CUSTOMER c on a.CU_REF = c.CU_REF " +
+                    "left join CUST_PERSONAL c1 on c.CU_REF = c1.CU_REF " +
+                    "left join CUST_COMPANY c2 on c.CU_REF = c2.CU_REF " +
+                    "left join RFCOMPTYPE c3 on c2.CU_COMPTYPE = c3.COMPTYPEID " +
+                    "join LISTASSIGNMENT l on a.AP_REGNO = l.AP_REGNO and a.CU_REF = l.CU_REF " +
+                    "join COLLATERAL d on l.CU_REF = d.CU_REF and l.CL_SEQ = d.CL_SEQ " +
+                    "join RFCOLLATERALTYPE e on d.CL_TYPE = e.COLTYPESEQ " +
+                    "join RFAGENCY g on l.AGENCYID = g.AGENCYID and g.AGENCYTYPEID = '01'" +
+                    "where l.LA_APPRSTATUS in ('1', '2') and a.AP_REJECT = '0' and a.AP_CANCEL = '0' " +
+                    "and g.AGENCY_EMAIL = '" + email + "'";
                 conn.ExecuteQuery();
 
                 DataTable dtResult = conn.GetDataTable().Copy();
@@ -118,9 +138,13 @@ namespace SMEWebAPI.Controllers
                 appraisalMobile.ApprValuePasar = appraisalResultNew.ApprValuePasar;
                 appraisalMobile.ApprValueLikuidasi = appraisalResultNew.ApprValueLikuidasi;
                 appraisalMobile.ApprMarketabilityCode = appraisalResultNew.ApprMrCode;
+                appraisalMobile.RfApprMarketability = appraisalResultNew.RfApprMarketability;
                 appraisalMobile.ApprIkatSempurnaCode = appraisalResultNew.ApprIksCode;
+                appraisalMobile.RfApprIkatSempurna = appraisalResultNew.RfApprIkatSempurna;
                 appraisalMobile.ApprKuasaCode = appraisalResultNew.ApprKuCode;
+                appraisalMobile.RfApprKuasa = appraisalResultNew.RfApprKuasa;
                 appraisalMobile.ApprMasalahCode = appraisalResultNew.ApprPmCode;
+                appraisalMobile.RfApprMasalah = appraisalResultNew.RfApprMasalah;
 
                 return Ok(appraisalMobile);
             }
