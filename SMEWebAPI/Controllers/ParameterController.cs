@@ -249,5 +249,35 @@ namespace SMEWebAPI.Controllers
         {
             return Ok(db.RfInsuranceTypes);
         }
+
+        [Route("CompanyType")]
+        public IHttpActionResult GetCompanyType()
+        {
+            return Ok(db.RfCompanyTypes);
+        }
+
+        [Route("BusinessType")]
+        public IHttpActionResult GetBusinessType()
+        {
+            return Ok(db.RfBusinessTypes);
+        }
+
+        [Route("JenisBangunan")]
+        public IHttpActionResult GetJenisBangunan()
+        {
+            return Ok(db.RfJenisBangunans);
+        }
+
+        [Route("ApprUmur")]
+        public IHttpActionResult GetApprUmur()
+        {
+            return Ok(db.RfApprUmurs);
+        }
+
+        [Route("Rating")]
+        public IHttpActionResult GetRating()
+        {
+            return Ok(db.RfRatings);
+        }
     }
 }

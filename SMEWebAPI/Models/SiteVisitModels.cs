@@ -631,4 +631,226 @@ namespace SMEWebAPI.Models
 
         public string TeleponDapatDihubungiX { get; set; }
     }
+
+    public class SiteVisitKantor
+    {
+        [Required]
+        public string ApRegno { get; set; }
+
+        // [Required]
+        public string CuRef { get; set; }
+
+        [Required]
+        public DateTime? TanggalInvestigasi { get; set; }
+
+        public string NamaPemberiKeterangan1 { get; set; }
+
+        public string HubunganPemberiKeterangan1 { get; set; }
+
+        public string NamaPemberiKeterangan2 { get; set; }
+
+        public string HubunganPemberiKeterangan2 { get; set; }
+
+        public string TipePerusahaan { get; set; }
+
+        public string NamaPerusahaan { get; set; }
+
+        public string AlamatPerusahaan { get; set; }
+
+        public string PropinsiPerusahaanX { get; set; }
+
+        public string KotaPerusahaanX { get; set; }
+
+        public string KecamatanPerusahaanX { get; set; }
+
+        public string KelurahanPerusahaanX { get; set; }
+
+        public string NoTeleponKantor { get; set; }
+
+        public string NoFaxKantor { get; set; }
+
+        public string LamaUsahaTahun { get; set; }
+
+        public string BidangUsaha { get; set; }
+
+        public string JumlahKaryawan { get; set; }
+
+        public string SkalaPerusahaan { get; set; }
+
+        public string JenisBangunan { get; set; }
+
+        public string LokasiBangunan { get; set; }
+
+        public string KondisiBangunan { get; set; }
+
+        public string StatusKepemilikan { get; set; }
+
+        public string JenisPekerjaan { get; set; }
+
+        public string Jabatan { get; set; }
+
+        public string LamaBekerjaTahun { get; set; }
+
+        public string LamaBekerjaBulan { get; set; }
+
+        public string StatusKaryawan { get; set; }
+
+        public string UnitPekerjaan { get; set; }
+
+        public string KinerjaKaryawan { get; set; }
+
+        public double? IncomeBrutoPemohon { get; set; }
+
+        public double? IncomeOtherPemohon { get; set; }
+
+        public double? PengeluaranPemohon { get; set; }
+
+        public double? IncomeMargin { get; set; }
+
+        public string JumlahTanggungan { get; set; }
+
+        // Pasangan
+
+        public string NamaPasangan { get; set; }
+
+        public string JenisPekerjaanPasangan { get; set; }
+
+        public double? IncomeTotalPasangan { get; set; }
+
+        // Keluarga
+
+        public string NamaKeluarga { get; set; }
+
+        public string AlamatKeluarga { get; set; }
+
+        public string KodePosKeluarga { get; set; }
+
+        public string PropinsiKeluargaX { get; set; }
+
+        public string KotaKeluargaX { get; set; }
+
+        public string NoTeleponKeluarga { get; set; }
+
+        public string NoHpKeluarga { get; set; }
+
+        public string HubunganKeluarga { get; set; }
+    }
+
+    public class SiteVisitKantorPekerjaan
+    {
+        [Required]
+        public string ApRegno { get; set; }
+
+        [Required]
+        public string CuRef { get; set; }
+
+        [Required]
+        public DateTime? TanggalInvestigasi { get; set; }
+
+        public string NamaPemberiKeterangan1 { get; set; }
+
+        public string HubunganPemberiKeterangan1 { get; set; }
+
+        public string NamaPemberiKeterangan2 { get; set; }
+
+        public string HubunganPemberiKeterangan2 { get; set; }
+
+        public string TipePerusahaan { get; set; }
+
+        public string NamaPerusahaan { get; set; }
+
+        public string AlamatPerusahaan { get; set; }
+
+        public string PropinsiPerusahaanX { get; set; }
+
+        public string KotaPerusahaanX { get; set; }
+
+        public string KecamatanPerusahaanX { get; set; }
+
+        public string KelurahanPerusahaanX { get; set; }
+
+        public string NoTeleponKantor { get; set; }
+
+        public string NoFaxKantor { get; set; }
+
+        public string LamaUsahaTahun { get; set; }
+
+        public string BidangUsaha { get; set; }
+
+        public string JumlahKaryawan { get; set; }
+
+        public string SkalaPerusahaan { get; set; }
+
+        public string JenisBangunan { get; set; }
+
+        public string LokasiBangunan { get; set; }
+
+        public string KondisiBangunan { get; set; }
+
+        public string StatusKepemilikan { get; set; }
+
+        public string JenisPekerjaan { get; set; }
+
+        public string Jabatan { get; set; }
+
+        public string LamaBekerjaTahun { get; set; }
+
+        public string LamaBekerjaBulan { get; set; }
+
+        public string StatusKaryawan { get; set; }
+
+        public string UnitPekerjaan { get; set; }
+
+        public string KinerjaKaryawan { get; set; }
+
+        public double? IncomeBrutoPemohon { get; set; }
+
+        public double? IncomeOtherPemohon { get; set; }
+
+        public double? PengeluaranPemohon { get; set; }
+
+        public double? IncomeMargin { get; set; }
+
+        public string JumlahTanggungan { get; set; }
+    }
+
+    public class SiteVisitKantorPasangan
+    {
+        [Required]
+        public string ApRegno { get; set; }
+
+        [Required]
+        public string CuRef { get; set; }
+
+        public string NamaPasangan { get; set; }
+
+        public string JenisPekerjaanPasangan { get; set; }
+
+        public double? IncomeTotalPasangan { get; set; }
+    }
+
+    public class SiteVisitKantorKeluarga
+    {
+        [Required]
+        public string ApRegno { get; set; }
+
+        [Required]
+        public string CuRef { get; set; }
+
+        public string NamaKeluarga { get; set; }
+
+        public string AlamatKeluarga { get; set; }
+
+        public string KodePosKeluarga { get; set; }
+
+        public string PropinsiKeluargaX { get; set; }
+
+        public string KotaKeluargaX { get; set; }
+
+        public string NoTeleponKeluarga { get; set; }
+
+        public string NoHpKeluarga { get; set; }
+
+        public string HubunganKeluarga { get; set; }
+    }
 }

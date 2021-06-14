@@ -483,4 +483,74 @@
         [Column("ACTIVE")]
         public string Active { get; set; }
     }
+
+    [Table("RFCOMPTYPE")]
+    public class RfCompanyType
+    {
+        [Key]
+        [Column("COMPTYPEID")]
+        public string CompanyTypeId { get; set; }
+
+        [Column("COMPTYPEDESC")]
+        public string CompanyTypeDesc { get; set; }
+
+        [Column("ACTIVE")]
+        public string Active { get; set; }
+    }
+
+    [Table("RFBUSINESSTYPE")]
+    public class RfBusinessType
+    {
+        [Key]
+        [Column("BUSSTYPEID")]
+        public string BussTypeId { get; set; }
+
+        [Column("BUSSTYPEDESC")]
+        public string BussTypeDesc { get; set; }
+
+        [Column("ACTIVE")]
+        public string Active { get; set; }
+    }
+
+    [Table("RFJENISBANGUNAN")]
+    public class RfJenisBangunan
+    {
+        [Key]
+        [Column("BANGUNANID")]
+        public string BangunanId { get; set; }
+
+        [Column("BANGUNANDESC")]
+        public string BangunanDesc { get; set; }
+
+        [Column("ACTIVE")]
+        public string Active { get; set; }
+    }
+
+    [Table("RF_APPR_UMUR")]
+    public class RfApprUmur
+    {
+        [Key]
+        [Column("UMURID")]
+        public string UmurId { get; set; }
+
+        [Column("UMURDESC")]
+        public string UmurDesc { get; set; }
+
+        [Column("ACTIVE")]
+        public string Active { get; set; }
+    }
+
+    [Table("RFRATING")]
+    public class RfRating
+    {
+        [Key]
+        [Column("RATEID")]
+        public string RateId { get; set; }
+
+        [Column("RATEDESC")]
+        public string RateDesc { get; set; }
+
+        [Column("ACTIVE")]
+        public string Active { get; set; }
+    }
 }

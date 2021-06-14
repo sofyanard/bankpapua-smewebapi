@@ -67,6 +67,11 @@ namespace SMEWebAPI
         public virtual DbSet<RfPekerjaan> RfPekerjaans { get; set; }
         public virtual DbSet<NotaryAssign> NotaryAssigns { get; set; }
         public virtual DbSet<NotaryAssignDetail> NotaryAssignDetails { get; set; }
+        public virtual DbSet<RfCompanyType> RfCompanyTypes { get; set; }
+        public virtual DbSet<RfBusinessType> RfBusinessTypes { get; set; }
+        public virtual DbSet<RfJenisBangunan> RfJenisBangunans { get; set; }
+        public virtual DbSet<RfApprUmur> RfApprUmurs { get; set; }
+        public virtual DbSet<RfRating> RfRatings { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
