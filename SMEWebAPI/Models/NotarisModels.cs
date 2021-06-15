@@ -101,4 +101,71 @@ namespace SMEWebAPI.Models
 
         public string Remarks { get; set; }
     }
+
+    public class NotarisInfoCustomer
+    {
+        public string ApRegno { get; set; }
+
+        public string BranchName { get; set; }
+
+        public string AccountOfficer { get; set; }
+
+        public string CustomerName { get; set; }
+
+        public string CustomerAddress { get; set; }
+
+        public string CustomerCity { get; set; }
+
+        public string HomePhoneNo { get; set; }
+
+        public string MobilePhoneNo { get; set; }
+
+        public string ContactPerson { get; set; }
+    }
+
+    public class NotarisInfoCollateral
+    {
+        public string ApRegno { get; set; }
+
+        public string CuRef { get; set; }
+
+        public string ClSeq { get; set; }
+
+        public string Description { get; set; }
+
+        public string CollateralType { get; set; }
+
+        public string Address { get; set; }
+
+        public string Location { get; set; }
+
+        public string Owner { get; set; }
+
+        public string CertificateType { get; set; }
+
+        public string CertificateNo { get; set; }
+    }
+
+    public class NotarisInfoFacility
+    {
+        public string ApRegno { get; set; }
+
+        public string AppType { get; set; }
+
+        public string ProductId { get; set; }
+
+        public string ProductSeq { get; set; }
+
+        public string ProductDesc { get; set; }
+
+        public double? Limit { get; set; }
+
+        public int? Tenor { get; set; }
+
+        public string LoanPurpose { get; set; }
+
+        public DateTime? PkDate { get; set; }
+
+        public string PkNo { get; set; }
+    }
 }

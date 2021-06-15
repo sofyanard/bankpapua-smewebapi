@@ -223,4 +223,48 @@ namespace SMEWebAPI.Models
             this.FuUserId = appraisalNewFileUpload.FuUserId;
         }
     }
+
+    public class AppraisalInfoCustomer
+    {
+        public string ApRegno { get; set; }
+
+        public string BranchName { get; set; }
+
+        public string AccountOfficer { get; set; }
+
+        public string CustomerName { get; set; }
+
+        public string CustomerAddress { get; set; }
+
+        public string CustomerCity { get; set; }
+
+        public string HomePhoneNo { get; set; }
+
+        public string MobilePhoneNo { get; set; }
+
+        public string ContactPerson { get; set; }
+    }
+
+    public class AppraisalInfoCollateral
+    {
+        public string ApRegno { get; set; }
+
+        public string CuRef { get; set; }
+
+        public string ClSeq { get; set; }
+
+        public string Description { get; set; }
+
+        public string CollateralType { get; set; }
+
+        public string Address { get; set; }
+
+        public string Location { get; set; }
+
+        public string Owner { get; set; }
+
+        public string CertificateType { get; set; }
+
+        public string CertificateNo { get; set; }
+    }
 }

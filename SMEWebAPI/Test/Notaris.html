@@ -80,16 +80,16 @@
 
             <div class="row">
                 <div class="col-md-3">
-
-                </div>
-                <div class="col-md-3">
-
-                </div>
-                <div class="col-md-3">
                     <button type="button" class="btn btn-secondary" id="upload" name="upload">UPLOAD / ID</button>
                 </div>
                 <div class="col-md-3">
-
+                    <button type="button" class="btn btn-info" id="infoCustomer" name="infoCustomer">INFO CUSTOMER / ID</button>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-info" id="infoFacility" name="infoFacility">INFO FACILITY / ID</button>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-info" id="infoCollateral" name="infoCollateral">INFO COLLATERAL / ID</button>
                 </div>
             </div>
 
@@ -230,6 +230,84 @@
                     return;
                 }
                 window.location.replace('../test/NotarisUpload.html?apregno=' + $('#apRegno').val());
+            });
+
+            // INFO CUSTOMER / ID
+            $('#infoCustomer').click(function () {
+                $.ajax({
+                    url: '../api/notaris/' + $('#apRegno').val() + '/' + $('#seq').val() + '/infocustomer',
+                    type: 'GET',
+                    headers: {
+                        "Authorization": "Bearer " + $('#token').val()
+                    },
+                    contentType: 'application/json',
+                    success: function (result) {
+                        $('#divsuccess').show();
+                        $('#msgsuccess').html(JSON.stringify(result));
+
+
+                    },
+                    error: function error(xhr, status, error) {
+                        $('#diverror').show();
+                        $('#msgerror').html(xhr.responseText);
+                    },
+                    complete: function (xhr, status) {
+                        $('#divcomplete').show();
+                        $('#msgcomplete').html(xhr.status);
+                    }
+                });
+            });
+
+            // INFO COLLATERAL / ID
+            $('#infoCollateral').click(function () {
+                $.ajax({
+                    url: '../api/notaris/' + $('#apRegno').val() + '/' + $('#seq').val() + '/infocollateral',
+                    type: 'GET',
+                    headers: {
+                        "Authorization": "Bearer " + $('#token').val()
+                    },
+                    contentType: 'application/json',
+                    success: function (result) {
+                        $('#divsuccess').show();
+                        $('#msgsuccess').html(JSON.stringify(result));
+
+
+                    },
+                    error: function error(xhr, status, error) {
+                        $('#diverror').show();
+                        $('#msgerror').html(xhr.responseText);
+                    },
+                    complete: function (xhr, status) {
+                        $('#divcomplete').show();
+                        $('#msgcomplete').html(xhr.status);
+                    }
+                });
+            });
+
+            // INFO FACILITY / ID
+            $('#infoFacility').click(function () {
+                $.ajax({
+                    url: '../api/notaris/' + $('#apRegno').val() + '/' + $('#seq').val() + '/infofacility',
+                    type: 'GET',
+                    headers: {
+                        "Authorization": "Bearer " + $('#token').val()
+                    },
+                    contentType: 'application/json',
+                    success: function (result) {
+                        $('#divsuccess').show();
+                        $('#msgsuccess').html(JSON.stringify(result));
+
+
+                    },
+                    error: function error(xhr, status, error) {
+                        $('#diverror').show();
+                        $('#msgerror').html(xhr.responseText);
+                    },
+                    complete: function (xhr, status) {
+                        $('#divcomplete').show();
+                        $('#msgcomplete').html(xhr.status);
+                    }
+                });
             });
 
         });
