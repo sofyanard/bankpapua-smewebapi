@@ -124,5 +124,40 @@ namespace SMEWebAPI.Controllers
                 return InternalServerError(e);
             }
         }
+
+        // PUT: api/Notaris/5/4
+        [Route("{apRegno}/{seq}")]
+        [ResponseType(typeof(void))]
+        public IHttpActionResult Put(string apRegno, int seq, [FromBody] NotaryAssignMobile input)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                NotaryAssign notaryAssign = db.NotaryAssigns
+                    .Where(p => p.ApRegno == apRegno && p.Seq == seq)
+                    .FirstOrDefault();
+
+                if (notaryAssign == null)
+                {
+                    return BadRequest("No record found!");
+                }
+
+                notaryAssign.OrderNo = input.OrderNo;
+                notaryAssign.OrderDate = input.OrderDate;
+                notaryAssign.Remarks = input.Remarks;
+
+                db.SaveChanges();
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
     }
 }

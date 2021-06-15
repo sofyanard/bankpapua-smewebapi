@@ -87,5 +87,18 @@ namespace SMEWebAPI.Models
         public virtual RfPekerjaan RfPekerjaan { get; set; }
     }
 
+    public class NotaryAssignMobile
+    {
+        [Required]
+        public string ApRegno { get; set; }
 
+        [Required]
+        public int Seq { get; set; }
+
+        public string OrderNo { get; set; }
+
+        public DateTime? OrderDate { get; set; }
+
+        public string Remarks { get; set; }
+    }
 }

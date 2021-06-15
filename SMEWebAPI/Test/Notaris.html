@@ -28,8 +28,8 @@
             </div>
 
             <div class="form-group">
-                <label for="insuranceCompanyId">Insurance Company Id</label>
-                <input type="text" class="form-control" id="insuranceCompanyId" name="insuranceCompanyId" readonly>
+                <label for="notaryId">Notary Id</label>
+                <input type="text" class="form-control" id="notaryId" name="notaryId" readonly>
             </div>
 
             <div class="form-group">
@@ -45,43 +45,18 @@
             <hr />
 
             <div class="form-group">
-                <label for="insuranceTypeId">Insurance Type</label>
-                <select class="form-control" id="insuranceTypeId" name="insuranceTypeId"></select>
+                <label for="orderNo">Order No</label>
+                <input type="text" class="form-control" id="orderNo" name="orderNo">
             </div>
 
             <div class="form-group">
-                <label for="insuranceAmount">Insurance Amount</label>
-                <input type="number" class="form-control" id="insuranceAmount" name="insuranceAmount">
+                <label for="orderDate">Order Date</label>
+                <input type="date" class="form-control" id="orderDate" name="orderDate">
             </div>
 
             <div class="form-group">
-                <label for="currencyId">Currency</label>
-                <select class="form-control" id="currencyId" name="currencyId"></select>
-            </div>
-
-            <div class="form-group">
-                <label for="percentage">Percentage</label>
-                <input type="number" class="form-control" id="percentage" name="percentage">
-            </div>
-
-            <div class="form-group">
-                <label for="premi">Premi</label>
-                <input type="number" class="form-control" id="premi" name="premi">
-            </div>
-
-            <div class="form-group">
-                <label for="dateStart">Date Start</label>
-                <input type="date" class="form-control" id="dateStart" name="dateStart">
-            </div>
-
-            <div class="form-group">
-                <label for="dateEnd">Date End</label>
-                <input type="date" class="form-control" id="dateEnd" name="dateEnd">
-            </div>
-
-            <div class="form-group">
-                <label for="policyNo">Polis No</label>
-                <input type="text" class="form-control" id="policyNo" name="policyNo">
+                <label for="remarks">Remarks</label>
+                <input type="text" class="form-control" id="remarks" name="remarks">
             </div>
 
             <br />
@@ -196,7 +171,10 @@
                         $('#divsuccess').show();
                         $('#msgsuccess').html(JSON.stringify(result));
 
-
+                        $('#notaryId').val(result.NotaryId);
+                        $('#orderNo').val(result.OrderNo);
+                        $('#orderDate').val(result.OrderDate);
+                        $('#remarks').val(result.Remarks);
                     },
                     error: function error(xhr, status, error) {
                         $('#diverror').show();
@@ -210,21 +188,14 @@
             });
 
             // PUT / ID
-            /*
             $('#put').click(function () {
 
                 var data = JSON.stringify({
                     ApRegno: $('#apRegno').val(),
                     Seq: $('#seq').val(),
-                    InsuranceCompanyId: $('#insuranceCompanyId').val(),
-                    InsuranceTypeId: $('#insuranceTypeId').val(),
-                    InsuranceAmount: $('#insuranceAmount').val(),
-                    CurrencyId: $('#currencyId').val(),
-                    Percentage: $('#percentage').val(),
-                    Premi: $('#premi').val(),
-                    DateStart: $('#dateStart').val(),
-                    DateEnd: $('#dateEnd').val(),
-                    PolicyNo: $('#policyNo').val()
+                    OrderNo: $('#orderNo').val(),
+                    OrderDate: $('#orderDate').val(),
+                    Remarks: $('#remarks').val()
                 });
 
                 $.ajax({
@@ -251,7 +222,6 @@
                     }
                 });
             });
-            */
 
             // UPLOAD / ID
             $('#upload').click(function () {
