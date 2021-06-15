@@ -251,16 +251,16 @@
                     }
                 });
             });
+            */
 
             // UPLOAD / ID
             $('#upload').click(function () {
-                if (($('#apRegno').val() == '') || ($('#cuRef').val() == '') || ($('#clSeq').val() == '')) {
-                    alert('ApRegno, CuRef, ClSeq harus diisi!');
+                if ($('#apRegno').val() == null) {
+                    alert('ApRegno harus dipilih!');
                     return;
                 }
-                window.location.replace('../test/AppraisalUpload.html?apregno=' + $('#apRegno').val() + '&curef=' + $('#cuRef').val() + '&clseq=' + $('#clSeq').val());
+                window.location.replace('../test/NotarisUpload.html?apregno=' + $('#apRegno').val());
             });
-            */
 
         });
     </script>
